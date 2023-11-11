@@ -1,0 +1,27 @@
+format: jb-book
+root: index.md
+parts:
+- caption: Getting Started
+  chapters:
+  - file: getting-started/setup-python
+- caption: Thermodynamics
+  chapters:
+  - file: thermodynamics/intro
+  - file: thermodynamics/states
+  - file: thermodynamics/processes
+  - file: thermodynamics/components
+  - file: thermodynamics/exercises
+- caption: Simple Heat Pump Model
+  chapters:
+  - file: model/intro
+  - file: model/sequential-modular
+  - file: model/equation-oriented
+  - file: model/application
+- caption: Heat Pump Model in TESPy
+  chapters:
+  - file: model/tespy-intro
+  - file: model/tespy-model
+  - file: model/tespy-application
+- caption: References
+  chapters:
+  - file: zliterature
