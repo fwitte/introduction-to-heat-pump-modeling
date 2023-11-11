@@ -39,9 +39,9 @@ its boundaries. This type of system is called *adiabatic*.
 
 ```{figure} /figures/Systemoverview.svg
 ---
-name: "thermodynamic-systems"
+name: thermodynamic-systems
 ---
-Overview of different types of thermodynamic systems
+Illustration of different types of thermodynamic systems
 ```
 
 If you take a snapshot of the system in time and describe its inner properties,
@@ -54,7 +54,7 @@ The state of a system is not fixed, it may change during a
 ---
 name: thermodynamic-processes
 ---
-Thermodynamic system changing its state through process
+Illustration of a thermodynamic system changing its state through a process
 ```
 
 Technical systems like a heat pump often consist of many connected *components*
