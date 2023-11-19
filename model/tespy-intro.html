@@ -169,7 +169,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../thermodynamics/intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../thermodynamics/states.html">Thermodynamic states</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../thermodynamics/processes.html">Energy balance and simple thermodynamic processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thermodynamics/processes.html">Thermodynamic processes in open systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../thermodynamics/components.html">Components of thermal systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../thermodynamics/exercises.html">Exercises</a></li>
 </ul>
@@ -445,12 +445,12 @@ documentation.</p>
 <section id="modeling-a-compressor">
 <h3>Modeling a Compressor<a class="headerlink" href="#modeling-a-compressor" title="Permalink to this heading">#</a></h3>
 <p>First, we are modeling a compressor, which compresses fully saturated steam to a
-higher pressure level. The <a class="reference internal" href="#compressor-flowsheet"><span class="std std-numref">Fig. 6</span></a> shows the abstract
+higher pressure level. The <a class="reference internal" href="#compressor-flowsheet"><span class="std std-numref">Fig. 8</span></a> shows the abstract
 representation of the component. The table below summarizes the process
 parameters we are going to apply in our example.</p>
 <figure class="align-default" id="compressor-flowsheet">
 <img alt="../_images/Compressor.svg" src="../_images/Compressor.svg" /><figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Compressor model.</span><a class="headerlink" href="#compressor-flowsheet" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Compressor model.</span><a class="headerlink" href="#compressor-flowsheet" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <table class="table" id="table-mini-example-compressor">
@@ -536,7 +536,7 @@ process parameters. We start with the values as provided in
  2     | 5.91e+05   | 2 %        | 0.00e+00   | 2.33e-10   | 7.39e+05   | 0.00e+00   | 0.00e+00   
  3     | 2.33e-10   | 100 %      | 0.00e+00   | 2.33e-10   | 6.94e-12   | 0.00e+00   | 0.00e+00   
  4     | 2.33e-10   | 100 %      | 0.00e+00   | 2.33e-10   | 6.94e-12   | 0.00e+00   | 0.00e+00   
-Total iterations: 4, Calculation time: 0.01 s, Iterations per second: 755.29
+Total iterations: 4, Calculation time: 0.01 s, Iterations per second: 732.82
 </pre></div>
 </div>
 </div>
@@ -666,12 +666,12 @@ system of equations and will result in an error when trying to solve.</p>
 <section id="modeling-a-heat-exchanger">
 <h3>Modeling a Heat Exchanger<a class="headerlink" href="#modeling-a-heat-exchanger" title="Permalink to this heading">#</a></h3>
 <p>In the second example we are going to model a heat exchanger as shown in
-<a class="reference internal" href="#heat-exchanger-flowsheet"><span class="std std-numref">Fig. 7</span></a>, specifically an evaporator using heat from
+<a class="reference internal" href="#heat-exchanger-flowsheet"><span class="std std-numref">Fig. 9</span></a>, specifically an evaporator using heat from
 ambient air to evaporate the working fluid R290 (Propane). The parameter we want
 to provide are listed in the table below.</p>
 <figure class="align-default" id="heat-exchanger-flowsheet">
 <img alt="../_images/HeatExchanger.svg" src="../_images/HeatExchanger.svg" /><figcaption>
-<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Evaporator model.</span><a class="headerlink" href="#heat-exchanger-flowsheet" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">Evaporator model.</span><a class="headerlink" href="#heat-exchanger-flowsheet" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Similar to the compressor example we work with a <code class="docutils literal notranslate"><span class="pre">Network</span></code> instance, this time

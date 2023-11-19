@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Energy balance and simple thermodynamic processes &#8212; Workshop on Thermodynamic Modeling of Heat Pumps</title>
+    <title>Thermodynamic processes in open systems &#8212; Workshop on Thermodynamic Modeling of Heat Pumps</title>
   
   
   
@@ -171,7 +171,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="states.html">Thermodynamic states</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Energy balance and simple thermodynamic processes</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Thermodynamic processes in open systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="components.html">Components of thermal systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
 </ul>
@@ -374,7 +374,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Energy balance and simple thermodynamic processes</h1>
+    <h1>Thermodynamic processes in open systems</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -384,8 +384,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-balance-of-the-open-system">Energy balance of the open system</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-thermodynamic-processes">Simple thermodynamic processes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-balance-equation">Energy balance equation</a></li>
 </ul>
             </nav>
         </div>
@@ -397,10 +397,13 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="energy-balance-and-simple-thermodynamic-processes">
-<h1>Energy balance and simple thermodynamic processes<a class="headerlink" href="#energy-balance-and-simple-thermodynamic-processes" title="Permalink to this heading">#</a></h1>
-<section id="energy-balance-of-the-open-system">
-<h2>Energy balance of the open system<a class="headerlink" href="#energy-balance-of-the-open-system" title="Permalink to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="thermodynamic-processes-in-open-systems">
+<h1>Thermodynamic processes in open systems<a class="headerlink" href="#thermodynamic-processes-in-open-systems" title="Permalink to this heading">#</a></h1>
+<section id="id1">
+<h2><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="energy-balance-equation">
+<h2>Energy balance equation<a class="headerlink" href="#energy-balance-equation" title="Permalink to this heading">#</a></h2>
 <p>To model processes in open thermodynamic systems, the energy balance connects
 the change of the fluid’s state to the energy transfer from or to the system.
 To simplify, we will only consider systems in <em>steady-state</em> operation. That
@@ -408,14 +411,15 @@ means, that the operation of the system does not change with time, e.g. due to
 thermal inertia. Furthermore, we will assume, that neither kinetic nor potential
 energy of the fluid will change, when the fluid passes the system, or the change
 is negligibly small in comparison to the change of enthalpy.
-<a class="reference internal" href="#thermo-open-system-energy"><span class="std std-numref">Fig. 5</span></a> shows a general thermodynamic open system
+<a class="reference internal" href="#thermo-open-system-energy"><span class="std std-numref">Fig. 7</span></a> shows a general thermodynamic open system
 with <span class="math notranslate nohighlight">\(o\)</span> denoting outlet streams and <span class="math notranslate nohighlight">\(i\)</span> denoting inlet streams. On top of that,
-energy can be transferred from or to the system with work or heat. Then, the
-general energy balance of the thermodynamic open system in steady-state
-operation can be written as follows:</p>
+energy can be transferred from or to the system with work or heat.
+Irreversibility production due to thermodynamic inefficiencies can be neglected
+at first. Then, the general energy balance of the thermodynamic open system in
+steady-state operation can be written as follows:</p>
 <figure class="align-default" id="thermo-open-system-energy">
 <img alt="../_images/Systemoverview.svg" src="../_images/Systemoverview.svg" /><figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">States of the evaporating fluid.</span><a class="headerlink" href="#thermo-open-system-energy" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">States of the evaporating fluid.</span><a class="headerlink" href="#thermo-open-system-energy" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="math notranslate nohighlight">
@@ -424,18 +428,6 @@ operation can be written as follows:</p>
 simplifying the equation:</p>
 <div class="math notranslate nohighlight">
 \[\dot Q + \dot W = \dot m \cdot \left( h_\text{out} - h_\text{in}\right)\]</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>We disregard dissipation of energy due to irreversibilites in these equations.</p>
-</div>
-</section>
-<section id="simple-thermodynamic-processes">
-<h2>Simple thermodynamic processes<a class="headerlink" href="#simple-thermodynamic-processes" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>reversible</p></li>
-<li><p>isobaric</p></li>
-<li><p>isentropic</p></li>
-</ul>
 </section>
 </section>
 
@@ -502,8 +494,8 @@ simplifying the equation:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-balance-of-the-open-system">Energy balance of the open system</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-thermodynamic-processes">Simple thermodynamic processes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-balance-equation">Energy balance equation</a></li>
 </ul>
   </nav></div>
 

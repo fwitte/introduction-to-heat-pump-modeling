@@ -69,7 +69,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/logo_oemof_small.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Energy balance and simple thermodynamic processes" href="processes.html" />
+    <link rel="next" title="Thermodynamic processes in open systems" href="processes.html" />
     <link rel="prev" title="Introduction" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -171,7 +171,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Thermodynamic states</a></li>
-<li class="toctree-l1"><a class="reference internal" href="processes.html">Energy balance and simple thermodynamic processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processes.html">Thermodynamic processes in open systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="components.html">Components of thermal systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
 </ul>
@@ -437,11 +437,33 @@ complex models, but the good news is: Others have implemented the algorithms and
 shared them as open source software.</p>
 </div>
 <p>It is possible to visualize the fluid property models in different types of
-states diagrams. For example, a p,v,T-surface is plotted for water in
-<a class="reference internal" href="#thermo-pvt"><span class="std std-numref">Fig. 4</span></a>. <span class="math notranslate nohighlight">\(v\)</span> is the mass specific volume, the inverse of density.</p>
+states diagrams. For example, a log(p),log(v),T-surface is plotted for water in
+<a class="reference internal" href="#thermo-pvt"><span class="std std-numref">Fig. 4</span></a>. <span class="math notranslate nohighlight">\(v\)</span> is the mass specific volume, the inverse of density.
+The <a class="reference internal" href="#thermo-pt"><span class="std std-numref">Fig. 5</span></a> shows a pT-plane indicating the interdependency of
+pressure and temperature in the two-phase region. The colors indicate the
+different phases of the fluid:</p>
+<ul class="simple">
+<li><p>red: two-phase region</p></li>
+<li><p>blue: subcooled liquid</p></li>
+<li><p>turquoise: overheated gas</p></li>
+<li><p>yellow: supercritical state</p></li>
+</ul>
 <figure class="align-default" id="thermo-pvt">
-<img alt="../_images/Systemoverview.svg" src="../_images/Systemoverview.svg" /><figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Pressure, specific volume, temperature space for water.</span><a class="headerlink" href="#thermo-pvt" title="Permalink to this image">#</a></p>
+<img alt="figures/pvT_water.svg" src="figures/pvT_water.svg" /><figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Pressure, specific volume, temperature space of water.</span><a class="headerlink" href="#thermo-pvt" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="thermo-pt">
+<img alt="../_images/pT_water.svg" src="../_images/pT_water.svg" /><figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Pressure, temperature plane of water.</span><a class="headerlink" href="#thermo-pt" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The shape of the pvT space is different for every individual fluid. Note the
+changes in the scales in the pvT space of ammonia compared to water in
+<a class="reference internal" href="#thermo-pvt-nh3"><span class="std std-numref">Fig. 6</span></a>.</p>
+<figure class="align-default" id="thermo-pvt-nh3">
+<img alt="figures/pvT_NH3.svg" src="figures/pvT_NH3.svg" /><figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Pressure, specific volume, temperature space of ammonia.</span><a class="headerlink" href="#thermo-pvt-nh3" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Apart from the three state variables pressure, temperature and density, other
@@ -499,7 +521,7 @@ mass of a fluid to change the state while flowing through an open system.</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Energy balance and simple thermodynamic processes</p>
+        <p class="prev-next-title">Thermodynamic processes in open systems</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
