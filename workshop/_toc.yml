@@ -16,12 +16,12 @@ parts:
   - file: model/intro
   - file: model/sequential-modular
   - file: model/equation-oriented
-  - file: model/application
+  - file: model/exercises
 - caption: Heat Pump Model in TESPy
   chapters:
   - file: model/tespy-intro
   - file: model/tespy-model
-  - file: model/tespy-application
+  - file: model/tespy-exercises
 - caption: References
   chapters:
   - file: zliterature
