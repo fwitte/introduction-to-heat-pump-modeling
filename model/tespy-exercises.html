@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Exercises &#8212; Workshop on Thermodynamic Modeling of Heat Pumps</title>
+    <title>Exercises using TESPy &#8212; Workshop on Thermodynamic Modeling of Heat Pumps</title>
   
   
   
@@ -178,7 +178,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tespy-intro.html">Introduction to TESPy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tespy-model.html">Heat Pump Model in TESPy</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercises</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercises using TESPy</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -364,7 +364,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Exercises</h1>
+    <h1>Exercises using TESPy</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -378,8 +378,148 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="exercises">
-<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="exercises-using-tespy">
+<h1>Exercises using TESPy<a class="headerlink" href="#exercises-using-tespy" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tespy.components</span> <span class="kn">import</span> <span class="n">Compressor</span><span class="p">,</span> <span class="n">SimpleHeatExchanger</span><span class="p">,</span> <span class="n">Valve</span><span class="p">,</span> <span class="n">CycleCloser</span>
+<span class="kn">from</span> <span class="nn">tespy.connections</span> <span class="kn">import</span> <span class="n">Connection</span>
+<span class="kn">from</span> <span class="nn">tespy.tools.helpers</span> <span class="kn">import</span> <span class="n">UserDefinedEquation</span>
+<span class="kn">from</span> <span class="nn">tespy.networks</span> <span class="kn">import</span> <span class="n">Network</span>
+
+
+<span class="n">nw</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">T_unit</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="n">p_unit</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">h_unit</span><span class="o">=</span><span class="s2">&quot;kJ / kg&quot;</span><span class="p">,</span> <span class="n">iterinfo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">cc</span> <span class="o">=</span> <span class="n">CycleCloser</span><span class="p">(</span><span class="s2">&quot;cycle closer&quot;</span><span class="p">)</span>
+<span class="n">ev</span> <span class="o">=</span> <span class="n">SimpleHeatExchanger</span><span class="p">(</span><span class="s2">&quot;evaporator&quot;</span><span class="p">)</span>
+<span class="n">cp</span> <span class="o">=</span> <span class="n">Compressor</span><span class="p">(</span><span class="s2">&quot;compressor&quot;</span><span class="p">)</span>
+<span class="n">cd</span> <span class="o">=</span> <span class="n">SimpleHeatExchanger</span><span class="p">(</span><span class="s2">&quot;condenser&quot;</span><span class="p">)</span>
+<span class="n">va</span> <span class="o">=</span> <span class="n">Valve</span><span class="p">(</span><span class="s2">&quot;valve&quot;</span><span class="p">)</span>
+
+<span class="n">c1</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="s2">&quot;out1&quot;</span><span class="p">,</span> <span class="n">ev</span><span class="p">,</span> <span class="s2">&quot;in1&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">(</span><span class="n">ev</span><span class="p">,</span> <span class="s2">&quot;out1&quot;</span><span class="p">,</span> <span class="n">cp</span><span class="p">,</span> <span class="s2">&quot;in1&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">)</span>
+<span class="n">c3</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">(</span><span class="n">cp</span><span class="p">,</span> <span class="s2">&quot;out1&quot;</span><span class="p">,</span> <span class="n">cd</span><span class="p">,</span> <span class="s2">&quot;in1&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">)</span>
+<span class="n">c4</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">(</span><span class="n">cd</span><span class="p">,</span> <span class="s2">&quot;out1&quot;</span><span class="p">,</span> <span class="n">va</span><span class="p">,</span> <span class="s2">&quot;in1&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;4&quot;</span><span class="p">)</span>
+<span class="n">c0</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">(</span><span class="n">va</span><span class="p">,</span> <span class="s2">&quot;out1&quot;</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="s2">&quot;in1&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+<span class="n">nw</span><span class="o">.</span><span class="n">add_conns</span><span class="p">(</span><span class="n">c0</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span><span class="p">,</span> <span class="n">c4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_2</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">t_4</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">heat</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e6</span>
+<span class="n">fluid</span> <span class="o">=</span> <span class="s2">&quot;R290&quot;</span>
+<span class="n">eta_s</span> <span class="o">=</span> <span class="mf">0.8</span>
+
+<span class="n">c2</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">fluid</span><span class="o">=</span><span class="p">{</span><span class="n">fluid</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span> <span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">t_2</span><span class="p">)</span>
+<span class="n">c4</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="n">t_4</span><span class="p">)</span>
+<span class="n">cp</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">eta_s</span><span class="o">=</span><span class="n">eta_s</span><span class="p">)</span>
+<span class="n">ev</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">pr</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">pr</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">Q</span><span class="o">=</span><span class="n">heat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nw</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="s2">&quot;design&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cop</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">cd</span><span class="o">.</span><span class="n">Q</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="n">cp</span><span class="o">.</span><span class="n">P</span><span class="o">.</span><span class="n">val</span>
+<span class="n">cop</span>
+<span class="n">cp</span><span class="o">.</span><span class="n">P</span><span class="o">.</span><span class="n">val</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>242298.03586750317
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">P</span><span class="o">=</span><span class="mf">0.2e6</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">Q</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">nw</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="s2">&quot;design&quot;</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">Q</span><span class="o">.</span><span class="n">val</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-825429.7204271422
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">Q</span><span class="o">=-</span><span class="mf">1e6</span><span class="p">)</span>
+<span class="n">c4</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">nw</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="s2">&quot;design&quot;</span><span class="p">)</span>
+<span class="n">c4</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">val</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>52.33872548735076
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cop_ude</span><span class="p">(</span><span class="n">ude</span><span class="p">):</span>
+    <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span> <span class="o">=</span> <span class="n">ude</span><span class="o">.</span><span class="n">conns</span>
+    <span class="n">cop</span> <span class="o">=</span> <span class="n">ude</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;cop&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">c2</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">val_SI</span> <span class="o">-</span> <span class="n">c3</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">val_SI</span><span class="p">)</span> <span class="o">-</span> <span class="n">cop</span> <span class="o">*</span> <span class="p">(</span><span class="n">c2</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">val_SI</span> <span class="o">-</span> <span class="n">c1</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">val_SI</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">cop_jacobian</span><span class="p">(</span><span class="n">ude</span><span class="p">):</span>
+    <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span> <span class="o">=</span> <span class="n">ude</span><span class="o">.</span><span class="n">conns</span>
+    <span class="k">if</span> <span class="n">c1</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">is_var</span><span class="p">:</span>
+        <span class="n">ude</span><span class="o">.</span><span class="n">jacobian</span><span class="p">[</span><span class="n">c1</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">J_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">cop</span>
+    <span class="k">if</span> <span class="n">c2</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">is_var</span><span class="p">:</span>
+        <span class="n">ude</span><span class="o">.</span><span class="n">jacobian</span><span class="p">[</span><span class="n">c2</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">J_col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">cop</span>
+    <span class="k">if</span> <span class="n">c3</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">is_var</span><span class="p">:</span>
+        <span class="n">ude</span><span class="o">.</span><span class="n">jacobian</span><span class="p">[</span><span class="n">c3</span><span class="o">.</span><span class="n">h</span><span class="o">.</span><span class="n">J_col</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">Q</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+
+<span class="n">ude</span> <span class="o">=</span> <span class="n">UserDefinedEquation</span><span class="p">(</span><span class="s2">&quot;cop-ude&quot;</span><span class="p">,</span> <span class="n">cop_ude</span><span class="p">,</span> <span class="n">cop_jacobian</span><span class="p">,</span> <span class="p">[</span><span class="n">c2</span><span class="p">,</span> <span class="n">c3</span><span class="p">,</span> <span class="n">c4</span><span class="p">],</span> <span class="p">{</span><span class="s2">&quot;cop&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
+<span class="n">nw</span><span class="o">.</span><span class="n">add_ude</span><span class="p">(</span><span class="n">ude</span><span class="p">)</span>
+
+<span class="n">nw</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="s2">&quot;design&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="o">.</span><span class="n">Q</span><span class="o">.</span><span class="n">val</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1000000.0000000105
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
