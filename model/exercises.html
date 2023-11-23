@@ -353,7 +353,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -369,6 +371,16 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-part-1">Tasks part 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-part-2">Tasks part 2</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -380,6 +392,78 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="exercises">
 <h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
+<p>Create a model of a simple heat pump using R290 as refrigerant and with the
+boundary conditions denoted in table below. Do not consider hot side of the
+evaporator or cold side of the condenser in your model.</p>
+<figure class="align-default" id="simple-heat-pump-flowsheet">
+<img alt="../_images/heat_pump.svg" src="../_images/heat_pump.svg" /><figcaption>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Flow sheet of the simple heat pump.</span><a class="headerlink" href="#simple-heat-pump-flowsheet" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Location</p></th>
+<th class="head text-left"><p>Parameter</p></th>
+<th class="head text-right"><p>Value</p></th>
+<th class="head"><p>Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>2</p></td>
+<td class="text-left"><p>Temperature</p></td>
+<td class="text-right"><p>10</p></td>
+<td><p>°C</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>4</p></td>
+<td class="text-left"><p>Temperature</p></td>
+<td class="text-right"><p>60</p></td>
+<td><p>°C</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Condenser</p></td>
+<td class="text-left"><p>Heat transfer</p></td>
+<td class="text-right"><p>1</p></td>
+<td><p>MW</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Compressor</p></td>
+<td class="text-left"><p>efficiency</p></td>
+<td class="text-right"><p>80</p></td>
+<td><p>%</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tasks-part-1">
+<h2>Tasks part 1<a class="headerlink" href="#tasks-part-1" title="Permalink to this heading">#</a></h2>
+<p>Calculate:</p>
+<ul class="simple">
+<li><p>pressure levels for evaporation and condensation.</p></li>
+<li><p>COP and compressor power input.</p></li>
+<li><p>the Carnot factor.</p></li>
+<li><p>the mass flow of the refrigerant.</p></li>
+</ul>
+<p>Create three figures:</p>
+<ul class="simple">
+<li><p>A logph-diagram of the cycle.</p></li>
+<li><p>Two diagrams indicating the dependency of the COP:</p>
+<ul>
+<li><p>as function of the heat temperature level</p></li>
+<li><p>as function of the heat sink temperature level</p></li>
+</ul>
+</li>
+</ul>
+<p>Modify your model and calculate the following:</p>
+<ul class="simple">
+<li><p>How would the COP of the heat pump change if</p>
+<ul>
+<li><p>the fluid leaving the evaporated is superheated by 5 °C?</p></li>
+<li><p>the fluid leaving the condenser is subcooled by 5 °C?</p></li>
+</ul>
+</li>
+<li><p>What is the maximum heat supply temperature, that can be reached if (e.g. due
+to regulatory constraints) the cop of the heat pump has to be 6 at minimum?</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">CoolProp.CoolProp</span> <span class="kn">import</span> <span class="n">PropsSI</span>
@@ -489,6 +573,10 @@ document.write(`
 </div>
 </div>
 </div>
+<p>Change the working fluid in your setup to ammonia.</p>
+<ul class="simple">
+<li><p>How does the COP compare to the first setup? Why is it different?</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluid</span> <span class="o">=</span> <span class="s2">&quot;NH3&quot;</span>
@@ -518,6 +606,18 @@ document.write(`
 </div>
 </div>
 <p>Carnot-efficiency is higher per se. Thermodynamic temperature of heat supply is lower than with the first fluid.</p>
+</section>
+<section id="tasks-part-2">
+<h2>Tasks part 2<a class="headerlink" href="#tasks-part-2" title="Permalink to this heading">#</a></h2>
+<p>The available compressor power is now limited to 200 kW.</p>
+<ul class="simple">
+<li><p>What amount of heat can the heat pump deliver in the conditions given in the
+table?</p></li>
+<li><p>What amount of heat can be delivered when the heat source temperature is
+reduced to 0 °C.</p></li>
+<li><p>At which heat source temperature level does the heat pump deliver 1 MW of heat
+again?</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">power_new</span> <span class="o">=</span> <span class="mf">0.2e6</span>
@@ -574,6 +674,7 @@ document.write(`
 </div>
 </div>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -629,6 +730,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-part-1">Tasks part 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-part-2">Tasks part 2</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
