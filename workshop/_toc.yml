@@ -14,9 +14,8 @@ parts:
 - caption: Simple Heat Pump Model
   chapters:
   - file: model/intro
-  - file: model/sequential-modular
-  - file: model/equation-oriented
-  - file: model/exercises
+  - file: model/exercise-sm.ipynb
+  - file: model/example-eo.ipynb
 - caption: Heat Pump Model in TESPy
   chapters:
   - file: model/tespy-intro
