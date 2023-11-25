@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/logo_oemof_small.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Sequential modular approach" href="sequential-modular.html" />
+    <link rel="next" title="Exercises" href="exercise-sm.html" />
     <link rel="prev" title="Exercises" href="../thermodynamics/exercises.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -170,9 +170,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Simple Heat Pump Model</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sequential-modular.html">Sequential modular approach</a></li>
-<li class="toctree-l1"><a class="reference internal" href="equation-oriented.html">Equation oriented approach</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercise-sm.html">Exercises</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example-eo.html">Example for the equation oriented approach</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Heat Pump Model in TESPy</span></p>
 <ul class="nav bd-sidenav">
@@ -380,6 +379,38 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
+<p>There are different ways to calculate the operation of thermal energy conversion
+plants, i.e. the sequential-modular (SM) and the equation-oriented (EO)
+approach. Both approaches exist since the 1970s and have been discussed many
+times, e.g. [SOURCES] or [SOURCES_TEXTBOOKS]. In general, equations are applied to model the physical
+processes happening in the plant’s components. A solution is found, if mass and
+energy balances across all components are solved. In short: SM is the more
+“straightforward” approach, which starts at a specific point of the plant and
+solves for the next state equation by equation. After all equations have been
+solved once, further iteration might be required, i.e. if recirculations are
+required of if equations affect multiple parts of the plant at the same time. On
+top of that, if the user specifications change for a setup, the order of
+solving changes as well. This makes this approach less flexible compared to the
+EO approach.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The SM approach will be the approach we implement in this course manually. In
+the exercise you will see its advantages and shortcomings at an example.</p>
+</div>
+<p>In contrast, the EO approach sets up a linear system of non-linear equations and
+solves all equations simultaneously. For example, a multidimensional
+Newton-Raphson algorithm can then be employed to solve these equations
+iteratively. The system of equations is built from the topology of the plant and
+the parameters applied by the user. Additional iterations in case of
+recirculations are not required. Furthermore, the user is free in the
+specification of topology and parameters as long as the system of equations is
+well determined with respect to its variables. The main disadvantage is that
+troubleshooting requires more experience as the solver cannot point out a
+specific reason for failure. In addition, the solver requires starting values
+for all variables. An initial guess for generic topologies and generic fluids is
+challenging to implement and thus might require user inputs. However, running
+additional simulations based on a converged solution leads to faster
+convergence.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -422,11 +453,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="sequential-modular.html"
+       href="exercise-sm.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Sequential modular approach</p>
+        <p class="prev-next-title">Exercises</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
