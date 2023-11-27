@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,9 +39,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -63,6 +63,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'model/exercise-sm';</script>
     <link rel="shortcut icon" href="../_static/logo_oemof_small.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -141,6 +143,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -335,6 +338,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -344,6 +348,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -377,7 +382,11 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-part-1">Tasks part 1</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-part-2">Tasks part 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-part-2">Tasks part 2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reimplementation">Reimplementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterative-calculations">Iterative calculations</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -617,12 +626,100 @@ reduced to 0 °C.</p></li>
 <li><p>At which heat source temperature level does the heat pump deliver 1 MW of heat
 again?</p></li>
 </ul>
+<section id="reimplementation">
+<h3>Reimplementation<a class="headerlink" href="#reimplementation" title="Permalink to this heading">#</a></h3>
+<p>For the first exercise we can reimplement our example straightforwardly: No
+temperature levels change, therefore only the calculation of the mass flow
+changes, i.e. via the compressor power and enthalpy difference instead of the
+condenser specifications.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluid</span> <span class="o">=</span> <span class="s2">&quot;R290&quot;</span>
+<span class="n">t_2</span> <span class="o">=</span> <span class="mf">283.15</span>
+<span class="n">t_4</span> <span class="o">=</span> <span class="mf">333.15</span>
+<span class="n">eta_s</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">power</span> <span class="o">=</span> <span class="mf">200e3</span>
+
+<span class="n">p_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+<span class="n">p_4</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+
+<span class="n">h_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+<span class="n">s_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+
+<span class="n">p_3</span> <span class="o">=</span> <span class="n">p_4</span>
+<span class="n">h_3s</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="n">s_2</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">p_3</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+<span class="n">h_3</span> <span class="o">=</span> <span class="n">h_2</span> <span class="o">+</span> <span class="p">(</span><span class="n">h_3s</span> <span class="o">-</span> <span class="n">h_2</span><span class="p">)</span> <span class="o">/</span> <span class="n">eta_s</span>
+
+<span class="n">h_4</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+<span class="n">h_1</span> <span class="o">=</span> <span class="n">h_4</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">power</span> <span class="o">/</span> <span class="p">(</span><span class="n">h_3</span> <span class="o">-</span> <span class="n">h_2</span><span class="p">)</span>
+<span class="n">heat</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="p">(</span><span class="n">h_4</span> <span class="o">-</span> <span class="n">h_3</span><span class="p">)</span>
+<span class="n">heat</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-825429.7204056584
+</pre></div>
+</div>
+</div>
+</div>
+<p>Similarly, we can reuse this implementation and simply change the value of
+<span class="math notranslate nohighlight">\(T_2\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_2</span> <span class="o">=</span> <span class="mf">273.15</span>
+
+<span class="n">p_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+<span class="n">p_4</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+
+<span class="n">h_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+<span class="n">s_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+
+<span class="n">p_3</span> <span class="o">=</span> <span class="n">p_4</span>
+<span class="n">h_3s</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="n">s_2</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">p_3</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+<span class="n">h_3</span> <span class="o">=</span> <span class="n">h_2</span> <span class="o">+</span> <span class="p">(</span><span class="n">h_3s</span> <span class="o">-</span> <span class="n">h_2</span><span class="p">)</span> <span class="o">/</span> <span class="n">eta_s</span>
+
+<span class="n">h_4</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+<span class="n">h_1</span> <span class="o">=</span> <span class="n">h_4</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">power</span> <span class="o">/</span> <span class="p">(</span><span class="n">h_3</span> <span class="o">-</span> <span class="n">h_2</span><span class="p">)</span>
+<span class="n">heat</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="p">(</span><span class="n">h_4</span> <span class="o">-</span> <span class="n">h_3</span><span class="p">)</span>
+<span class="n">heat</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-674011.0186535486
+</pre></div>
+</div>
+</div>
+</div>
+<p>The third variant is a more complex: We want to have a power input of 200 kW and
+1 MW of heat production at the same time and search for the temperature <span class="math notranslate nohighlight">\(T_2\)</span> to
+match that specification. Our only fixed point is the state number 4. The state
+3 depends on the unknown state 2 via the isentropic efficiency equation:</p>
+<div class="math notranslate nohighlight">
+\[h_3 = h(T=T_2, Q=1) + \frac{h\left(p=p_4, s=s\left(T=T_2, Q=1\right)\right) - h\left(T=T_2,Q=1\right)}{\eta_\text{cmp,s}}\]</div>
+<p>Together with the specifications of the condenser heat production and compressor
+power input we would have to solve for <span class="math notranslate nohighlight">\(T_2\)</span> in this equation, which is not
+easily possible. Therefore, an iterative approach can be taken making use of our
+previous implementation.</p>
+</section>
+<section id="iterative-calculations">
+<h3>Iterative calculations<a class="headerlink" href="#iterative-calculations" title="Permalink to this heading">#</a></h3>
+<p>We can implement a one-dimensional Newton algorithm to solve for the desired
+property. First, we can validate our implementation vs. the result we can from
+the first or second assignment.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">power_new</span> <span class="o">=</span> <span class="mf">0.2e6</span>
 <span class="n">fluid</span> <span class="o">=</span> <span class="s2">&quot;R290&quot;</span>
 <span class="n">power</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">heat_guess</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e6</span>
+<span class="n">t_2</span> <span class="o">=</span> <span class="mf">283.15</span>
+
 <span class="n">d</span> <span class="o">=</span> <span class="mf">1e-6</span>
 <span class="k">while</span> <span class="nb">abs</span><span class="p">(</span><span class="n">power</span> <span class="o">-</span> <span class="n">power_new</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">:</span>
     <span class="n">m</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">p_2</span><span class="p">,</span> <span class="n">p_4</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat_guess</span><span class="p">)</span>
@@ -644,6 +741,8 @@ again?</p></li>
 </div>
 </div>
 </div>
+<p>With the same strategy we can now update our temperature guess value and retrive
+it with both, power and heat, specified.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">power_new</span> <span class="o">=</span> <span class="mf">0.2e6</span>
@@ -651,27 +750,28 @@ again?</p></li>
 <span class="n">power</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">heat</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e6</span>
 <span class="n">d</span> <span class="o">=</span> <span class="mf">1e-6</span>
-<span class="n">t_4_guess</span> <span class="o">=</span> <span class="mf">333.15</span>
+<span class="n">t_2_guess</span> <span class="o">=</span> <span class="mf">333.15</span>
 <span class="k">while</span> <span class="nb">abs</span><span class="p">(</span><span class="n">power</span> <span class="o">-</span> <span class="n">power_new</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">:</span>
-    <span class="n">m</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">p_2</span><span class="p">,</span> <span class="n">p_4</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="n">t_4_guess</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">)</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">p_2</span><span class="p">,</span> <span class="n">p_4</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2_guess</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">)</span>
     <span class="n">residual</span> <span class="o">=</span> <span class="n">power</span> <span class="o">-</span> <span class="n">power_new</span>
-    <span class="n">t_4_upper</span> <span class="o">=</span> <span class="n">t_4_guess</span> <span class="o">+</span> <span class="n">d</span>
-    <span class="n">t_4_lower</span> <span class="o">=</span> <span class="n">t_4_guess</span> <span class="o">-</span> <span class="n">d</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">power_upper</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="n">t_4_upper</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">)</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">power_lower</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="n">t_4_lower</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">)</span>
+    <span class="n">t_2_upper</span> <span class="o">=</span> <span class="n">t_2_guess</span> <span class="o">+</span> <span class="n">d</span>
+    <span class="n">t_2_lower</span> <span class="o">=</span> <span class="n">t_2_guess</span> <span class="o">-</span> <span class="n">d</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">power_upper</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2_upper</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">power_lower</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2_lower</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">)</span>
     <span class="n">derivative</span> <span class="o">=</span> <span class="p">(</span><span class="n">power_upper</span> <span class="o">-</span> <span class="n">power_lower</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">d</span><span class="p">)</span>
-    <span class="n">t_4_guess</span> <span class="o">-=</span> <span class="n">residual</span> <span class="o">/</span> <span class="n">derivative</span>
+    <span class="n">t_2_guess</span> <span class="o">-=</span> <span class="n">residual</span> <span class="o">/</span> <span class="n">derivative</span>
 
-<span class="n">t_4_guess</span>
+<span class="n">t_2_guess</span> <span class="o">-</span> <span class="mf">273.15</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>325.488725484891
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>17.98695102553353
 </pre></div>
 </div>
 </div>
 </div>
+</section>
 </section>
 </section>
 
@@ -703,7 +803,7 @@ again?</p></li>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="intro.html"
@@ -740,7 +840,11 @@ again?</p></li>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-part-1">Tasks part 1</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-part-2">Tasks part 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tasks-part-2">Tasks part 2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reimplementation">Reimplementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterative-calculations">Iterative calculations</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
@@ -762,6 +866,7 @@ By Francesco Witte
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022.
@@ -788,8 +893,8 @@ By Francesco Witte
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>

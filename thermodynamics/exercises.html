@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,9 +39,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -63,6 +63,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'thermodynamics/exercises';</script>
     <link rel="shortcut icon" href="../_static/logo_oemof_small.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -141,6 +143,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../index.html">
@@ -335,6 +338,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -344,6 +348,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -529,7 +534,7 @@ in heat pumps?</p></li>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ammonia&quot;</span><span class="p">,</span> <span class="s2">&quot;water&quot;</span><span class="p">,</span> <span class="s2">&quot;R134a&quot;</span><span class="p">,</span> <span class="s2">&quot;Pentane&quot;</span><span class="p">,</span> <span class="s2">&quot;R290&quot;</span><span class="p">,</span> <span class="s2">&quot;R600&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ammonia&quot;</span><span class="p">,</span> <span class="s2">&quot;water&quot;</span><span class="p">,</span> <span class="s2">&quot;R134a&quot;</span><span class="p">,</span> <span class="s2">&quot;Pentane&quot;</span><span class="p">,</span> <span class="s2">&quot;R290&quot;</span><span class="p">,</span> <span class="s2">&quot;R600&quot;</span><span class="p">,</span> <span class="s2">&quot;R1234ze(E)&quot;</span><span class="p">]</span>
 <span class="n">temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">125</span><span class="p">)</span>
 <span class="n">saturation_pressure</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">fluid</span> <span class="ow">in</span> <span class="n">fluids</span><span class="p">:</span>
@@ -553,9 +558,21 @@ in heat pumps?</p></li>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/83c14a6d395174c4ecea4356dfca6982ae3e63b1e7f97aa009b2b02241a6daa5.png" src="../_images/83c14a6d395174c4ecea4356dfca6982ae3e63b1e7f97aa009b2b02241a6daa5.png" />
+<img alt="../_images/cdbc0d6b9ee7fea063f241778c41daa2641d45a4bd7b48639a1c6aa46094b2e8.png" src="../_images/cdbc0d6b9ee7fea063f241778c41daa2641d45a4bd7b48639a1c6aa46094b2e8.png" />
 </div>
 </div>
+<ul class="simple">
+<li><p>Operation below ambient pressure is challenging, since a vacuum has to be
+preserved. Therefore, for low temperature applications water, pentane and R600
+are not very feasible.</p></li>
+<li><p>Similarly, very high pressure is requires a lot of technical effort. E.g. to
+reach 125 °C, Ammonia has to be compressed to about 100 bar.</p></li>
+<li><p>R290 and R134a have very good pressure ranges. R290 is explosive, R134a has a
+very high global warming potential (GWP) [<a class="reference external" href="https://ozone.unep.org/system/files/documents/RTOC-assessment%20-report-2022.pdf">https://ozone.unep.org/system/files/documents/RTOC-assessment -report-2022.pdf</a>]</p></li>
+<li><p>Some reach critical point around 100 °C. In that region, the condensation
+section is small, therefore heat exchange has to happen with either larger
+surface area or higher temperature difference.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
@@ -575,9 +592,16 @@ in heat pumps?</p></li>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/759b91f956f07e0198dffb77613d232f75a1dc620fb4dc6aa1046af9d1dae247.png" src="../_images/759b91f956f07e0198dffb77613d232f75a1dc620fb4dc6aa1046af9d1dae247.png" />
+<img alt="../_images/63ade5f1857a012f3f6ecbc9360cb211e4acbb5e892da17b52f398b1dd34ccdf.png" src="../_images/63ade5f1857a012f3f6ecbc9360cb211e4acbb5e892da17b52f398b1dd34ccdf.png" />
 </div>
 </div>
+<ul class="simple">
+<li><p>Dry fluids (dewline leans over isentropics) risk compression into two-phase
+region, which may cause damage to the compressor.</p></li>
+<li><p>Small two-phase region indicates low heat of condensation (<span class="math notranslate nohighlight">\(q=\int s dT\)</span>)
+compared to desuperheating, which means higher heat exchange surface area
+required.</p></li>
+</ul>
 </section>
 <section id="component-models">
 <h2>Component Models<a class="headerlink" href="#component-models" title="Permalink to this heading">#</a></h2>
@@ -825,6 +849,14 @@ and the working fluid is 3 °C and the air temperature changes by 5 °C.</p></li
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>High volumetric flow means either high flow speed or very large heat exchange
+area.</p></li>
+<li><p>Pressure losses are extra costly with high volumetric flow, blowers/fans draw
+a lot of power.</p></li>
+<li><p>Water has higher density and also higher mass specific heat capacity. Change
+of temperature is lower for any given flowrate.</p></li>
+</ul>
 </section>
 </section>
 </section>
@@ -857,7 +889,7 @@ and the working fluid is 3 °C and the air temperature changes by 5 °C.</p></li
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="components.html"
@@ -920,6 +952,7 @@ By Francesco Witte
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022.
@@ -946,8 +979,8 @@ By Francesco Witte
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
