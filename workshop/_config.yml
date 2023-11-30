@@ -3,7 +3,7 @@
 
 title : Workshop on Thermodynamic Modeling of Heat Pumps
 author: Francesco Witte
-logo: figures/logo_oemof_mid.svg
+logo: logo_tespy_small.svg
 email: francesco.witte@dlr.de
 
 # Short description about the book
@@ -20,7 +20,7 @@ execute:
 html:
   use_issues_button: true
   use_repository_button: true
-  favicon: "logo_oemof_small.svg"
+  favicon: "logo_tespy_small.svg"
   home_page_in_navbar: false
 
 # Information about where the book exists on the web
