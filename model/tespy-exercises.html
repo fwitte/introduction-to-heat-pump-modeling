@@ -64,7 +64,7 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'model/tespy-exercises';</script>
-    <link rel="shortcut icon" href="../_static/logo_oemof_small.svg"/>
+    <link rel="shortcut icon" href="../_static/logo_tespy_small.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Literature" href="../zliterature.html" />
@@ -150,8 +150,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+    
+    
+      
+    
+    
+    <img src="../_static/logo_tespy_small.svg" class="logo__image only-light" alt="Workshop on Thermodynamic Modeling of Heat Pumps - Home"/>
+    <script>document.write(`<img src="../_static/logo_tespy_small.svg" class="logo__image only-dark" alt="Workshop on Thermodynamic Modeling of Heat Pumps - Home"/>`);</script>
   
-    <p class="title logo__title">Workshop on Thermodynamic Modeling of Heat Pumps</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -437,12 +443,11 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cop</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">cd</span><span class="o">.</span><span class="n">Q</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="n">cp</span><span class="o">.</span><span class="n">P</span><span class="o">.</span><span class="n">val</span>
 <span class="n">cop</span>
-<span class="n">cp</span><span class="o">.</span><span class="n">P</span><span class="o">.</span><span class="n">val</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>242298.03586750317
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.127148602008618
 </pre></div>
 </div>
 </div>
@@ -506,6 +511,18 @@ document.write(`
 <span class="n">nw</span><span class="o">.</span><span class="n">add_ude</span><span class="p">(</span><span class="n">ude</span><span class="p">)</span>
 
 <span class="n">nw</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="s2">&quot;design&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">abs</span><span class="p">(</span><span class="n">cd</span><span class="o">.</span><span class="n">Q</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="n">cp</span><span class="o">.</span><span class="n">P</span><span class="o">.</span><span class="n">val</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.000000000000047
 </pre></div>
 </div>
 </div>

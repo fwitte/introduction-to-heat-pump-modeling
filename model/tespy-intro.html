@@ -64,7 +64,7 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'model/tespy-intro';</script>
-    <link rel="shortcut icon" href="../_static/logo_oemof_small.svg"/>
+    <link rel="shortcut icon" href="../_static/logo_tespy_small.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Heat Pump Model in TESPy" href="tespy-model.html" />
@@ -150,8 +150,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+    
+    
+      
+    
+    
+    <img src="../_static/logo_tespy_small.svg" class="logo__image only-light" alt="Workshop on Thermodynamic Modeling of Heat Pumps - Home"/>
+    <script>document.write(`<img src="../_static/logo_tespy_small.svg" class="logo__image only-dark" alt="Workshop on Thermodynamic Modeling of Heat Pumps - Home"/>`);</script>
   
-    <p class="title logo__title">Workshop on Thermodynamic Modeling of Heat Pumps</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -408,7 +414,7 @@ system is set up by connecting the components in a generic way and then
 specifying respective process and component parameters.</p>
 <p>The software then performs a steady state simulation of your system by creating
 and solving a system of equations in the <em>equation oriented (EO)</em> approach
-(also see <span id="id1">[<a class="reference internal" href="../zliterature.html#id3" title="Francesco Witte and Ilja Tuschy. TESPy: Thermal Engineering Systems in Python. Journal of Open Source Software, 5(49):2178, 2020. doi:10.21105/joss.02178.">3</a>]</span> and <span id="id2">[<a class="reference internal" href="../zliterature.html#id5" title="Francesco Witte, Mathias Hofmann, Julius Meier, Ilja Tuschy, and George Tsatsaronis. Generic and Open-Source Exergy Analysis—Extending the Simulation Framework TESPy. Energies, 15:4087, 2022. doi:10.3390/en15114087.">4</a>]</span> as well as the online
+(also see <span id="id1">[<a class="reference internal" href="../zliterature.html#id3" title="Francesco Witte and Ilja Tuschy. TESPy: Thermal Engineering Systems in Python. Journal of Open Source Software, 5(49):2178, 2020. doi:10.21105/joss.02178.">9</a>]</span> and <span id="id2">[<a class="reference internal" href="../zliterature.html#id5" title="Francesco Witte, Mathias Hofmann, Julius Meier, Ilja Tuschy, and George Tsatsaronis. Generic and Open-Source Exergy Analysis—Extending the Simulation Framework TESPy. Energies, 15:4087, 2022. doi:10.3390/en15114087.">10</a>]</span> as well as the online
 documentation for more information). The system represents the individual
 topology and component and process specifications provided by you. TESPy
 accomplishes this by solving for</p>
@@ -441,12 +447,12 @@ documentation.</p>
 <section id="modeling-a-compressor">
 <h3>Modeling a Compressor<a class="headerlink" href="#modeling-a-compressor" title="Permalink to this heading">#</a></h3>
 <p>First, we are modeling a compressor, which compresses fully saturated steam to a
-higher pressure level. The <a class="reference internal" href="#compressor-flowsheet"><span class="std std-numref">Fig. 9</span></a> shows the abstract
+higher pressure level. The <a class="reference internal" href="#compressor-flowsheet"><span class="std std-numref">Fig. 10</span></a> shows the abstract
 representation of the component. The table below summarizes the process
 parameters we are going to apply in our example.</p>
 <figure class="align-default" id="compressor-flowsheet">
 <img alt="../_images/Compressor.svg" src="../_images/Compressor.svg" /><figcaption>
-<p><span class="caption-number">Fig. 9 </span><span class="caption-text">Compressor model.</span><a class="headerlink" href="#compressor-flowsheet" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Compressor model.</span><a class="headerlink" href="#compressor-flowsheet" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <table class="table" id="table-mini-example-compressor">
@@ -532,7 +538,7 @@ process parameters. We start with the values as provided in
  2     | 5.91e+05   | 2 %        | 0.00e+00   | 2.33e-10   | 7.39e+05   | 0.00e+00   | 0.00e+00   
  3     | 2.33e-10   | 100 %      | 0.00e+00   | 2.33e-10   | 6.94e-12   | 0.00e+00   | 0.00e+00   
  4     | 2.33e-10   | 100 %      | 0.00e+00   | 2.33e-10   | 6.94e-12   | 0.00e+00   | 0.00e+00   
-Total iterations: 4, Calculation time: 0.00 s, Iterations per second: 893.45
+Total iterations: 4, Calculation time: 0.00 s, Iterations per second: 866.05
 </pre></div>
 </div>
 </div>
@@ -662,12 +668,12 @@ system of equations and will result in an error when trying to solve.</p>
 <section id="modeling-a-heat-exchanger">
 <h3>Modeling a Heat Exchanger<a class="headerlink" href="#modeling-a-heat-exchanger" title="Permalink to this heading">#</a></h3>
 <p>In the second example we are going to model a heat exchanger as shown in
-<a class="reference internal" href="#heat-exchanger-flowsheet"><span class="std std-numref">Fig. 10</span></a>, specifically an evaporator using heat from
+<a class="reference internal" href="#heat-exchanger-flowsheet"><span class="std std-numref">Fig. 11</span></a>, specifically an evaporator using heat from
 ambient air to evaporate the working fluid R290 (Propane). The parameter we want
 to provide are listed in the table below.</p>
 <figure class="align-default" id="heat-exchanger-flowsheet">
 <img alt="../_images/HeatExchanger.svg" src="../_images/HeatExchanger.svg" /><figcaption>
-<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Evaporator model.</span><a class="headerlink" href="#heat-exchanger-flowsheet" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Evaporator model.</span><a class="headerlink" href="#heat-exchanger-flowsheet" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Similar to the compressor example we work with a <code class="docutils literal notranslate"><span class="pre">Network</span></code> instance, this time
@@ -774,7 +780,7 @@ adjusts the evaporation pressure/temperature of the working fluid automatically.
 <section id="learn-more">
 <h2>Learn more<a class="headerlink" href="#learn-more" title="Permalink to this heading">#</a></h2>
 <p>TESPy relies on CoolProp to provide fluid property data for a large range of
-different fluids <span id="id4">[<a class="reference internal" href="../zliterature.html#id6" title="Ian H. Bell, Jorrit Wronski, Sylvain Quoilin, and Vincent Lemort. Pure and pseudo-pure fluid thermophysical property evaluation and the open-source thermophysical property library coolprop. Industrial &amp; Engineering Chemistry Research, 53(6):2498–2508, 2014. doi:10.1021/ie4033999.">5</a>]</span>. The online documentation of TESPy provides a
+different fluids <span id="id4">[<a class="reference internal" href="../zliterature.html#id6" title="Ian H. Bell, Jorrit Wronski, Sylvain Quoilin, and Vincent Lemort. Pure and pseudo-pure fluid thermophysical property evaluation and the open-source thermophysical property library coolprop. Industrial &amp; Engineering Chemistry Research, 53(6):2498–2508, 2014. doi:10.1021/ie4033999.">3</a>]</span>. The online documentation of TESPy provides a
 large variety of examples and tutorials to learn to use the software as well as
 extensive background information and code documentation:</p>
 <ul class="simple">

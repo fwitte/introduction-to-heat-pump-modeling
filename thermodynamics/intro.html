@@ -64,7 +64,7 @@ const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'thermodynamics/intro';</script>
-    <link rel="shortcut icon" href="../_static/logo_oemof_small.svg"/>
+    <link rel="shortcut icon" href="../_static/logo_tespy_small.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Thermodynamic states" href="states.html" />
@@ -150,8 +150,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+    
+    
+      
+    
+    
+    <img src="../_static/logo_tespy_small.svg" class="logo__image only-light" alt="Workshop on Thermodynamic Modeling of Heat Pumps - Home"/>
+    <script>document.write(`<img src="../_static/logo_tespy_small.svg" class="logo__image only-dark" alt="Workshop on Thermodynamic Modeling of Heat Pumps - Home"/>`);</script>
   
-    <p class="title logo__title">Workshop on Thermodynamic Modeling of Heat Pumps</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -399,15 +405,15 @@ terms and concepts are defined in the overview on
 fundamentals are outlined in more detail. The theory is applied in a small
 exercise at the end of the chapter.</p>
 <ul class="simple">
-<li><p><span class="xref std std-ref">Thermodynamic state</span></p></li>
-<li><p><span class="xref std std-ref">Thermodynamic process</span></p></li>
-<li><p><span class="xref std std-ref">Components</span></p></li>
-<li><p><span class="xref std std-ref">Exercises</span></p></li>
+<li><p><a class="reference internal" href="states.html#thermo-states"><span class="std std-ref">Thermodynamic state</span></a></p></li>
+<li><p><a class="reference internal" href="processes.html#thermo-processes"><span class="std std-ref">Thermodynamic process</span></a></p></li>
+<li><p><a class="reference internal" href="components.html#thermo-components"><span class="std std-ref">Components</span></a></p></li>
+<li><p><a class="reference internal" href="exercises.html#thermo-exercises"><span class="std std-ref">Exercises</span></a></p></li>
 </ul>
 <p>For in depth theory the following literature might be useful:</p>
 <ul class="simple">
 <li><p>“Thermodynamik” (German) <span id="id1">[<a class="reference internal" href="../zliterature.html#id7" title="Hans Dieter Baehr and Stephan Kabelac. Thermodynamik. Springer Berlin Heidelberg, 2016. doi:10.1007/978-3-662-49568-1.">1</a>]</span></p></li>
-<li><p>“Thermodynamics” <span id="id2">[<a class="reference internal" href="../zliterature.html#id8" title="Sanford Klein and Gregory Nellis. Thermodynamics. Cambridge University Press, 2011. doi:10.1017/cbo9780511994883.">2</a>]</span></p></li>
+<li><p>“Thermodynamics” <span id="id2">[<a class="reference internal" href="../zliterature.html#id12" title="Sanford Klein and Gregory Nellis. Thermodynamics. Cambridge University Press, 2011. doi:10.1017/cbo9780511994883.">2</a>]</span></p></li>
 </ul>
 <section id="thermodynamic-system">
 <span id="thermo-system"></span><h2>Thermodynamic system<a class="headerlink" href="#thermodynamic-system" title="Permalink to this heading">#</a></h2>
@@ -424,10 +430,12 @@ be</p>
 <p>In this workshop we will only work with open systems with respect to mass
 transport. With respect to energy the systems may either be open or close. An
 important type of system is a system that does not allow transport of heat over
-its boundaries. This type of system is called <em>adiabatic</em>.</p>
+its boundaries. This type of system is called <em>adiabatic</em>. Systems that do not
+transfer work over their system boundaries do not get a specific name, examples
+are heat exchangers.</p>
 </div>
 <figure class="align-default" id="thermodynamic-systems">
-<img alt="figures/Systemoverview.svg" src="figures/Systemoverview.svg" /><figcaption>
+<img alt="../_images/system.svg" src="../_images/system.svg" /><figcaption>
 <p><span class="caption-number">Fig. 1 </span><span class="caption-text">Illustration of different types of thermodynamic systems</span><a class="headerlink" href="#thermodynamic-systems" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
@@ -435,9 +443,11 @@ its boundaries. This type of system is called <em>adiabatic</em>.</p>
 you describe the <em>state</em> of the system. The state includes information like
 pressure, temperature, type of fluid or phase (liquid/gaseous) of the fluid.
 The state of a system is not fixed, it may change during a
-<em>thermodynamic process</em> as shown in <a class="reference internal" href="#thermodynamic-processes"><span class="std std-numref">Fig. 2</span></a>.</p>
+<em>thermodynamic process</em>. <a class="reference internal" href="#thermodynamic-processes"><span class="std std-numref">Fig. 2</span></a> shows a snapshot of
+a closed thermodynamic system before and after a process has taken place. The
+system changed its state.</p>
 <figure class="align-default" id="thermodynamic-processes">
-<img alt="figures/Systemoverview.svg" src="figures/Systemoverview.svg" /><figcaption>
+<img alt="../_images/process.svg" src="../_images/process.svg" /><figcaption>
 <p><span class="caption-number">Fig. 2 </span><span class="caption-text">Illustration of a thermodynamic system changing its state through a process</span><a class="headerlink" href="#thermodynamic-processes" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
@@ -445,7 +455,15 @@ The state of a system is not fixed, it may change during a
 (each component can be considered an individual system), for example, heat
 exchangers, compressors, valves, pumps etc.. In these components different
 <em>processes</em> take place, that change the <em>state</em> of a fluid between the inlet of
-the component and its outlet.</p>
+the component and its outlet. For example, <a class="reference internal" href="#thermodynamic-system-open"><span class="std std-numref">Fig. 3</span></a>
+shows an electric heater, where a fluid flows through the system. The fluid
+changes its state between the inlet and the outlet of the system.</p>
+<figure class="align-default" id="thermodynamic-system-open">
+<img alt="../_images/system_open.svg" src="../_images/system_open.svg" /><figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of a fluid changing its state from 1 to 2 while flowing through an
+open system</span><a class="headerlink" href="#thermodynamic-system-open" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 </section>
 

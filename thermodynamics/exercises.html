@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'thermodynamics/exercises';</script>
-    <link rel="shortcut icon" href="../_static/logo_oemof_small.svg"/>
+    <link rel="shortcut icon" href="../_static/logo_tespy_small.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Introduction" href="../model/intro.html" />
@@ -152,8 +152,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+    
+    
+      
+    
+    
+    <img src="../_static/logo_tespy_small.svg" class="logo__image only-light" alt="Workshop on Thermodynamic Modeling of Heat Pumps - Home"/>
+    <script>document.write(`<img src="../_static/logo_tespy_small.svg" class="logo__image only-dark" alt="Workshop on Thermodynamic Modeling of Heat Pumps - Home"/>`);</script>
   
-    <p class="title logo__title">Workshop on Thermodynamic Modeling of Heat Pumps</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -399,7 +405,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="exercises">
-<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
+<span id="thermo-exercises"></span><h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
 <section id="thermodynamic-states-and-simple-processes">
 <h2>Thermodynamic states and simple processes<a class="headerlink" href="#thermodynamic-states-and-simple-processes" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
@@ -514,13 +520,14 @@ pressure?</p></li>
 <section id="refrigerants">
 <h2>Refrigerants<a class="headerlink" href="#refrigerants" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p>Plot the saturation curve for Ammonia, Water, R134a and Pentane in a log-p,T
-diagram for temperature ranging from -25 °C to 100 °C.</p></li>
-<li><p>Compare the plots: What factors may restrict the usage of the working fluids
-in heat pumps?</p></li>
-<li><p>Calculate the entropy for the dew line and the bubble line of the same
-working fluids for temperature values larger than -25 °C. Plot the lines in
-a T-s diagram.</p></li>
+<li><p>Plot the saturation curve for Ammonia, Water, R134a, R290, R600 and
+R1234ze(E) in a log-p,T diagram for temperature ranging from -25 °C to 125 °C.</p></li>
+<li><p>Plot the pressure ratio of saturation pressure vs. saturation pressure at
+10 °C over a range of temperature values from 30 °C to 80 °C.</p></li>
+<li><p>What factors may restrict the usage of the working fluids in heat pumps?</p></li>
+<li><p>Calculate the entropy for the saturated liquid and vapor line same working
+fluids for temperature values larger than -25 °C. Plot the lines in a T-s
+diagram.</p></li>
 <li><p>Compare the plots: What factors may restrict the usage of the working fluids
 in heat pumps?</p></li>
 </ol>
@@ -537,28 +544,55 @@ in heat pumps?</p></li>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ammonia&quot;</span><span class="p">,</span> <span class="s2">&quot;water&quot;</span><span class="p">,</span> <span class="s2">&quot;R134a&quot;</span><span class="p">,</span> <span class="s2">&quot;Pentane&quot;</span><span class="p">,</span> <span class="s2">&quot;R290&quot;</span><span class="p">,</span> <span class="s2">&quot;R600&quot;</span><span class="p">,</span> <span class="s2">&quot;R1234ze(E)&quot;</span><span class="p">]</span>
 <span class="n">temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">125</span><span class="p">)</span>
 <span class="n">saturation_pressure</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">saturation_pressure_10</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">fluid</span> <span class="ow">in</span> <span class="n">fluids</span><span class="p">:</span>
     <span class="n">saturation_pressure</span><span class="p">[</span><span class="n">fluid</span><span class="p">]</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">+</span> <span class="mf">273.15</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+    <span class="n">saturation_pressure_10</span><span class="p">[</span><span class="n">fluid</span><span class="p">]</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="mi">10</span> <span class="o">+</span> <span class="mf">273.15</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">fluid</span> <span class="ow">in</span> <span class="n">fluids</span><span class="p">:</span>
-    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">saturation_pressure</span><span class="p">[</span><span class="n">fluid</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">fluid</span><span class="p">)</span>
-    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">saturation_pressure</span><span class="p">[</span><span class="n">fluid</span><span class="p">]</span> <span class="o">/</span> <span class="n">saturation_pressure</span><span class="p">[</span><span class="n">fluid</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">saturation_pressure</span><span class="p">[</span><span class="n">fluid</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">fluid</span><span class="p">)</span>
 
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;pressure in Pa&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;temperature in °C&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;pressure in Pa&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;temperature in °C&quot;</span><span class="p">)</span>
 
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e5</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">temperature</span><span class="p">),</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;ambient pressure&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;pressure ratio p / p$_</span><span class="se">\\</span><span class="s2">text</span><span class="si">{min}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="p">[</span><span class="mf">1e5</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">temperature</span><span class="p">),</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;ambient pressure&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cdbc0d6b9ee7fea063f241778c41daa2641d45a4bd7b48639a1c6aa46094b2e8.png" src="../_images/cdbc0d6b9ee7fea063f241778c41daa2641d45a4bd7b48639a1c6aa46094b2e8.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f7adc387050&gt;
+</pre></div>
+</div>
+<img alt="../_images/48f0d44d1857a996aa6bcf51ffdda82a05ab7f01946ebb91b79c1a7d6615fa31.png" src="../_images/48f0d44d1857a996aa6bcf51ffdda82a05ab7f01946ebb91b79c1a7d6615fa31.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+<span class="n">saturation_pressure</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">fluid</span> <span class="ow">in</span> <span class="n">fluids</span><span class="p">:</span>
+    <span class="n">saturation_pressure</span><span class="p">[</span><span class="n">fluid</span><span class="p">]</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">+</span> <span class="mf">273.15</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">fluid</span> <span class="ow">in</span> <span class="n">fluids</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">saturation_pressure</span><span class="p">[</span><span class="n">fluid</span><span class="p">]</span> <span class="o">/</span> <span class="n">saturation_pressure_10</span><span class="p">[</span><span class="n">fluid</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">fluid</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;pressure ratio&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;temperature in °C&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;pressure ratio p / p$_</span><span class="se">\\</span><span class="s2">text</span><span class="si">{sat}</span><span class="se">\\</span><span class="s2">left(T=10°C</span><span class="se">\\</span><span class="s2">right)$&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/56e51bd202ab0748ec68d68124e2045ec5dd8f4c10c939d22c55abd8e3d86df1.png" src="../_images/56e51bd202ab0748ec68d68124e2045ec5dd8f4c10c939d22c55abd8e3d86df1.png" />
 </div>
 </div>
 <ul class="simple">
@@ -568,7 +602,7 @@ are not very feasible.</p></li>
 <li><p>Similarly, very high pressure is requires a lot of technical effort. E.g. to
 reach 125 °C, Ammonia has to be compressed to about 100 bar.</p></li>
 <li><p>R290 and R134a have very good pressure ranges. R290 is explosive, R134a has a
-very high global warming potential (GWP) [<a class="reference external" href="https://ozone.unep.org/system/files/documents/RTOC-assessment%20-report-2022.pdf">https://ozone.unep.org/system/files/documents/RTOC-assessment -report-2022.pdf</a>]</p></li>
+very high global warming potential (GWP), e.g. <span id="id1">[<a class="reference internal" href="../zliterature.html#id9" title="Refrigeration, Air Conditioning and Heat Pumps Technical Options Committee. 2022 assessment report. 2023. URL: https://ozone.unep.org/system/files/documents/RTOC-assessment%20-report-2022.pdf.">6</a>]</span></p></li>
 <li><p>Some reach critical point around 100 °C. In that region, the condensation
 section is small, therefore heat exchange has to happen with either larger
 surface area or higher temperature difference.</p></li>
@@ -596,6 +630,15 @@ surface area or higher temperature difference.</p></li>
 </div>
 </div>
 <ul class="simple">
+<li><p>Fluids can be categorized <span id="id2">[<a class="reference internal" href="../zliterature.html#id17" title="H. Tabor and L Bronicki. Establishing criteria for fluids for small vapor turbines. In SAE Technical Paper Series. SAE International, January 1964. doi:10.4271/640823.">7</a>]</span> (recently more detailed
+categories have been introduced <span id="id3">[<a class="reference internal" href="../zliterature.html#id10" title="Gábor Györke, Ulrich K. Deiters, Axel Groniewsky, Imre Lassu, and Attila R. Imre. Novel classification of pure working fluids for organic rankine cycle. Energy, 145:288–300, February 2018. doi:10.1016/j.energy.2017.12.135.">8</a>]</span>). The original categories
+were:</p>
+<ul>
+<li><p>wet: dew line with negative slope (e.g. water, ammonia)</p></li>
+<li><p>isentropic: dew line with infinite slope (e.g. R134a, R290, R1234ze(E))</p></li>
+<li><p>dry: dew line with positive slope (e.g. Pentane, R600)</p></li>
+</ul>
+</li>
 <li><p>Dry fluids (dewline leans over isentropics) risk compression into two-phase
 region, which may cause damage to the compressor.</p></li>
 <li><p>Small two-phase region indicates low heat of condensation (<span class="math notranslate nohighlight">\(q=\int s dT\)</span>)

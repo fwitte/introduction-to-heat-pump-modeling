@@ -34,10 +34,12 @@ be
 In this workshop we will only work with open systems with respect to mass
 transport. With respect to energy the systems may either be open or close. An
 important type of system is a system that does not allow transport of heat over
-its boundaries. This type of system is called *adiabatic*.
+its boundaries. This type of system is called *adiabatic*. Systems that do not
+transfer work over their system boundaries do not get a specific name, examples
+are heat exchangers.
 ```
 
-```{figure} /figures/Systemoverview.svg
+```{figure} /figures/system.svg
 ---
 name: thermodynamic-systems
 ---
@@ -48,9 +50,11 @@ If you take a snapshot of the system in time and describe its inner properties,
 you describe the *state* of the system. The state includes information like
 pressure, temperature, type of fluid or phase (liquid/gaseous) of the fluid.
 The state of a system is not fixed, it may change during a
-*thermodynamic process* as shown in {numref}`thermodynamic-processes`.
+*thermodynamic process*. {numref}`thermodynamic-processes` shows a snapshot of
+a closed thermodynamic system before and after a process has taken place. The
+system changed its state.
 
-```{figure} /figures/Systemoverview.svg
+```{figure} /figures/process.svg
 ---
 name: thermodynamic-processes
 ---
@@ -61,4 +65,14 @@ Technical systems like a heat pump often consist of many connected *components*
 (each component can be considered an individual system), for example, heat
 exchangers, compressors, valves, pumps etc.. In these components different
 *processes* take place, that change the *state* of a fluid between the inlet of
-the component and its outlet.
+the component and its outlet. For example, {numref}`thermodynamic-system-open`
+shows an electric heater, where a fluid flows through the system. The fluid
+changes its state between the inlet and the outlet of the system.
+
+```{figure} /figures/system_open.svg
+---
+name: thermodynamic-system-open
+---
+Illustration of a fluid changing its state from 1 to 2 while flowing through an
+open system
+```
