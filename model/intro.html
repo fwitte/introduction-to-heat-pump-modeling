@@ -391,20 +391,22 @@ document.write(`
 <p>There are different ways to calculate the operation of thermal energy conversion
 plants, i.e. the sequential-modular (SM) and the equation-oriented (EO)
 approach. Both approaches exist since the 1970s and have been discussed many
-times, e.g. [SOURCES] or [SOURCES_TEXTBOOKS]. In general, equations are applied to model the physical
-processes happening in the plant’s components. A solution is found, if mass and
-energy balances across all components are solved. In short: SM is the more
-“straightforward” approach, which starts at a specific point of the plant and
-solves for the next state equation by equation. After all equations have been
-solved once, further iteration might be required, i.e. if recirculations are
-required of if equations affect multiple parts of the plant at the same time. On
-top of that, if the user specifications change for a setup, the order of
-solving changes as well. This makes this approach less flexible compared to the
-EO approach.</p>
+times, e.g. the papers <span id="id1">[<a class="reference internal" href="../zliterature.html#id23" title="Lorenz T. Biegler. Simultaneous modular simulation and optimization. Technical Report, Carnegie Mellon University, Department of Chemical Engineering, Pittsburgh, US-PA, 1983.">9</a>]</span>, <span id="id2">[<a class="reference internal" href="../zliterature.html#id24" title="M. Shacham, S. Macchieto, L.F. Stutzman, and P. Babcock. Equation oriented approach to process flowsheeting. Comput. Chem. Eng., 6:79-95, 1982. doi:10.1016/0098-1354(82)87001-4.">10</a>]</span>,
+<span id="id3">[<a class="reference internal" href="../zliterature.html#id25" title="E. M. Rosen. Steady state chemical process simulation: a state-of-the-art review. In Robert G. Squires and G. V. Reklaitis, editors, Computer Applications to Chemical Engineering, pages 3–36. ACS, Washington, D.C., 1980. doi:10.1021/bk-1980-0124.ch001.">11</a>]</span> or by textbooks <span id="id4">[<a class="reference internal" href="../zliterature.html#id27" title="D. Auzinger, L. Peer, and Hj. Wacker. Steady state simulation of chemical plants – Flowsheeting. In H. Neunzert, editor, Proceedings of the Second European Symposium on Mathematics in Industry, pages 285–300. Teubner, Stuttgart, Germany, 1988. doi:10.1007/978-94-009-2979-1_18.">12</a>]</span>, <span id="id5">[<a class="reference internal" href="../zliterature.html#id28" title="Alexandre C. Dimian, Costin S. Bildea, and Anton A. Kiss. Steady state flowsheeting. In Computer Aided Chemical Engineering, pages 73–125. Elsevier, Amsterdam, The Netherlands, 2016. doi:10.1016/B978-0-444-62700-1.00003-6.">13</a>]</span>,
+<span id="id6">[<a class="reference internal" href="../zliterature.html#id26" title="Heimo Walter and Bernd Epple, editors. Numerical simulation of power plants and firing systems. Springer, Vienna, Austria, 2017. doi:10.1007/978-3-7091-4855-6.">14</a>]</span>.</p>
+<p>In general, equations are applied to model the physical processes happening in
+the plant’s components. A solution is found, if mass and energy balances across
+all components are solved. In short: SM is the more “straightforward” approach,
+which starts at a specific point of the plant and solves for the next state
+equation by equation. After all equations have been solved once, further
+iteration might be required, i.e. if recirculations are required of if equations
+affect multiple parts of the plant at the same time. On top of that, if the user
+specifications change for a setup, the order of solving changes as well. This
+makes this approach less flexible compared to the EO approach.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The SM approach will be the approach we implement in this course manually. In
-the exercise you will see its advantages and shortcomings at an example.</p>
+the exercise you will see its advantages and shortcomings at a concrete example.</p>
 </div>
 <p>In contrast, the EO approach sets up a linear system of non-linear equations and
 solves all equations simultaneously. For example, a multidimensional

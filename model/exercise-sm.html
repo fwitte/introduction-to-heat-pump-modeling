@@ -405,7 +405,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="exercises">
-<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
+<span id="exercise-heat-pump"></span><h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
 <p>Create a model of a simple heat pump using R290 as refrigerant and with the
 boundary conditions denoted in table below. Do not consider hot side of the
 evaporator or cold side of the condenser in your model.</p>
@@ -467,40 +467,14 @@ evaporator or cold side of the condenser in your model.</p>
 </ul>
 </li>
 </ul>
-<p>Modify your model and calculate the following:</p>
-<ul class="simple">
-<li><p>How would the COP of the heat pump change if</p>
-<ul>
-<li><p>the fluid leaving the evaporated is superheated by 5 °C?</p></li>
-<li><p>the fluid leaving the condenser is subcooled by 5 °C?</p></li>
-</ul>
-</li>
-<li><p>What is the maximum heat supply temperature, that can be reached if (e.g. due
-to regulatory constraints) the cop of the heat pump has to be 6 at minimum?</p></li>
-</ul>
+<p>We can calculate the evaporator and condenser outlet state based on temperature
+specification. The isentropic efficiency value allows us to calculate the
+compressor outlet enthalpy. Finally, the condenser heat production leads to the
+mass flow.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">CoolProp.CoolProp</span> <span class="kn">import</span> <span class="n">PropsSI</span>
 
-
-<span class="k">def</span> <span class="nf">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">):</span>
-
-    <span class="n">p_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
-    <span class="n">p_4</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
-
-    <span class="n">h_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
-    <span class="n">s_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
-
-    <span class="n">p_3</span> <span class="o">=</span> <span class="n">p_4</span>
-    <span class="n">h_3s</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="n">s_2</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">p_3</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
-    <span class="n">h_3</span> <span class="o">=</span> <span class="n">h_2</span> <span class="o">+</span> <span class="p">(</span><span class="n">h_3s</span> <span class="o">-</span> <span class="n">h_2</span><span class="p">)</span> <span class="o">/</span> <span class="n">eta_s</span>
-
-    <span class="n">h_4</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
-    <span class="n">h_1</span> <span class="o">=</span> <span class="n">h_4</span>
-
-    <span class="n">m</span> <span class="o">=</span> <span class="n">heat</span> <span class="o">/</span> <span class="p">(</span><span class="n">h_4</span> <span class="o">-</span> <span class="n">h_3</span><span class="p">)</span>
-    <span class="n">power</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="p">(</span><span class="n">h_3</span> <span class="o">-</span> <span class="n">h_2</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">m</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">p_4</span><span class="p">,</span> <span class="n">p_2</span>
 
 
 <span class="n">fluid</span> <span class="o">=</span> <span class="s2">&quot;R290&quot;</span>
@@ -508,13 +482,30 @@ to regulatory constraints) the cop of the heat pump has to be 6 at minimum?</p><
 <span class="n">t_4</span> <span class="o">=</span> <span class="mf">333.15</span>
 <span class="n">eta_s</span> <span class="o">=</span> <span class="mf">0.8</span>
 <span class="n">heat</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e6</span>
-<span class="n">m</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">p_4</span><span class="p">,</span> <span class="n">p_2</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">)</span>
+
+<span class="n">p_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+<span class="n">p_4</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+
+<span class="n">h_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+<span class="n">s_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+
+<span class="n">p_3</span> <span class="o">=</span> <span class="n">p_4</span>
+<span class="n">h_3s</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="n">s_2</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">p_3</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+<span class="n">h_3</span> <span class="o">=</span> <span class="n">h_2</span> <span class="o">+</span> <span class="p">(</span><span class="n">h_3s</span> <span class="o">-</span> <span class="n">h_2</span><span class="p">)</span> <span class="o">/</span> <span class="n">eta_s</span>
+
+<span class="n">h_4</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+<span class="n">h_1</span> <span class="o">=</span> <span class="n">h_4</span>
+<span class="n">p_1</span> <span class="o">=</span> <span class="n">p_2</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">heat</span> <span class="o">/</span> <span class="p">(</span><span class="n">h_4</span> <span class="o">-</span> <span class="n">h_3</span><span class="p">)</span>
+<span class="n">power</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="p">(</span><span class="n">h_3</span> <span class="o">-</span> <span class="n">h_2</span><span class="p">)</span>
 <span class="n">cop</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">heat</span><span class="p">)</span> <span class="o">/</span> <span class="n">power</span>
 <span class="n">heat_evap</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">heat</span><span class="p">)</span> <span class="o">-</span> <span class="n">power</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>We can examine a couple of the results calculated:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">(</span><span class="n">cop</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
@@ -587,39 +578,254 @@ to regulatory constraints) the cop of the heat pump has to be 6 at minimum?</p><
 </div>
 </div>
 </div>
-<p>Change the working fluid in your setup to ammonia.</p>
-<ul class="simple">
-<li><p>How does the COP compare to the first setup? Why is it different?</p></li>
-</ul>
+<p>Next we create a logph-diagram of the process. For that, we start by plotting
+the saturation dome and then insert the states and connect them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluid</span> <span class="o">=</span> <span class="s2">&quot;NH3&quot;</span>
-<span class="n">m</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">p_4</span><span class="p">,</span> <span class="n">p_2</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">)</span>
-<span class="n">cop</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">heat</span><span class="p">)</span> <span class="o">/</span> <span class="n">power</span>
-<span class="n">heat_evap</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">heat</span><span class="p">)</span> <span class="o">-</span> <span class="n">power</span>
-<span class="n">heat_evap</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+
+<span class="n">p_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="mf">273.15</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">),</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;PCRIT&quot;</span><span class="p">,</span> <span class="n">fluid</span><span class="p">))</span>
+<span class="n">boiling_line</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">p_range</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1e3</span>
+<span class="n">dew_line</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">p_range</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1e3</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">boiling_line</span><span class="p">,</span> <span class="n">p_range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#000&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dew_line</span><span class="p">,</span> <span class="n">p_range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#000&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">h</span> <span class="o">/</span> <span class="mf">1e3</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">[</span><span class="n">h_1</span><span class="p">,</span> <span class="n">h_2</span><span class="p">,</span> <span class="n">h_3</span><span class="p">,</span> <span class="n">h_4</span><span class="p">]],</span> <span class="p">[</span><span class="n">p_1</span><span class="p">,</span> <span class="n">p_2</span><span class="p">,</span> <span class="n">p_3</span><span class="p">,</span> <span class="n">p_4</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">h</span> <span class="o">/</span> <span class="mf">1e3</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">[</span><span class="n">h_1</span><span class="p">,</span> <span class="n">h_2</span><span class="p">,</span> <span class="n">h_3</span><span class="p">,</span> <span class="n">h_4</span><span class="p">,</span> <span class="n">h_1</span><span class="p">]],</span> <span class="p">[</span><span class="n">p_1</span><span class="p">,</span> <span class="n">p_2</span><span class="p">,</span> <span class="n">p_3</span><span class="p">,</span> <span class="n">p_4</span><span class="p">,</span> <span class="n">p_1</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;pressure in Pa&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;enthalpy in kJ/kg&quot;</span><span class="p">)</span>
+
+<span class="n">_x_lims</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+<span class="n">_y_lims</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>784894.5420018188
+<img alt="../_images/5ca547ea3c8db39ec5d9d524fa9034bab7abb3d546ff43ca2306a3294ed90c2a.png" src="../_images/5ca547ea3c8db39ec5d9d524fa9034bab7abb3d546ff43ca2306a3294ed90c2a.png" />
+</div>
+</div>
+<p>Alternatively we can use a library wrapping around CoolProp to plot styled
+diagrams, i.e. <code class="docutils literal notranslate"><span class="pre">fluprodia</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fluprodia</span> <span class="kn">import</span> <span class="n">FluidPropertyDiagram</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">fluid</span> <span class="o">=</span> <span class="s2">&quot;R290&quot;</span>
+<span class="n">diagram</span> <span class="o">=</span> <span class="n">FluidPropertyDiagram</span><span class="p">(</span><span class="n">fluid</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">set_unit_system</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="s2">&quot;°C&quot;</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="s2">&quot;kJ/kg&quot;</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">set_isolines</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1250</span><span class="p">,</span> <span class="mi">3001</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span> <span class="n">h</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">801</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">calc_isolines</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">(</span><span class="n">cop</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">diagram</span><span class="o">.</span><span class="n">draw_isolines</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="s2">&quot;logph&quot;</span><span class="p">,</span> <span class="n">_x_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">_x_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_y_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">_y_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">h</span> <span class="o">/</span> <span class="mf">1e3</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">[</span><span class="n">h_1</span><span class="p">,</span> <span class="n">h_2</span><span class="p">,</span> <span class="n">h_3</span><span class="p">,</span> <span class="n">h_4</span><span class="p">]],</span> <span class="p">[</span><span class="n">p_1</span><span class="p">,</span> <span class="n">p_2</span><span class="p">,</span> <span class="n">p_3</span><span class="p">,</span> <span class="n">p_4</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">h</span> <span class="o">/</span> <span class="mf">1e3</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">[</span><span class="n">h_1</span><span class="p">,</span> <span class="n">h_2</span><span class="p">,</span> <span class="n">h_3</span><span class="p">,</span> <span class="n">h_4</span><span class="p">,</span> <span class="n">h_1</span><span class="p">]],</span> <span class="p">[</span><span class="n">p_1</span><span class="p">,</span> <span class="n">p_2</span><span class="p">,</span> <span class="n">p_3</span><span class="p">,</span> <span class="n">p_4</span><span class="p">,</span> <span class="n">p_1</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;pressure in Pa&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;enthalpy in kJ/kg&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.65
+<img alt="../_images/f9c212356181f46e1dfb8035bca83fd91924a52e8a8bfafe3068513973972fbc.png" src="../_images/f9c212356181f46e1dfb8035bca83fd91924a52e8a8bfafe3068513973972fbc.png" />
+</div>
+</div>
+<p>With this we can also easily put in a Ts diagram. To plot the lines, we have to
+follow the isobars, which are partly in the two-phase partly in overheated
+region. For this, fluprodia provides extra functionality.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">diagram</span><span class="o">.</span><span class="n">draw_isolines</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="s2">&quot;Ts&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2500</span><span class="p">,</span> <span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">125</span><span class="p">)</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="n">p_1</span><span class="p">,</span> <span class="n">p_2</span><span class="p">,</span> <span class="n">p_3</span><span class="p">,</span> <span class="n">p_4</span><span class="p">],</span> <span class="p">[</span><span class="n">h_1</span><span class="p">,</span> <span class="n">h_2</span><span class="p">,</span> <span class="n">h_3</span><span class="p">,</span> <span class="n">h_4</span><span class="p">]):</span>
+    <span class="n">t</span> <span class="o">+=</span> <span class="p">[</span><span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span> <span class="o">-</span> <span class="mf">273.15</span><span class="p">]</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="p">[</span><span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)]</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+<span class="n">lines</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;12&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;isoline_property&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;isoline_value&quot;</span><span class="p">:</span> <span class="n">p_1</span><span class="p">,</span>
+        <span class="s2">&quot;starting_point_property&quot;</span><span class="p">:</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;starting_point_value&quot;</span><span class="p">:</span> <span class="n">h_1</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span>
+        <span class="s2">&quot;ending_point_property&quot;</span><span class="p">:</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ending_point_value&quot;</span><span class="p">:</span> <span class="n">h_2</span> <span class="o">/</span> <span class="mf">1e3</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;23&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;isoline_property&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;isoline_value&quot;</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="s2">&quot;isoline_value_end&quot;</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+        <span class="s2">&quot;starting_point_property&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;starting_point_value&quot;</span><span class="p">:</span> <span class="n">p_2</span><span class="p">,</span>
+        <span class="s2">&quot;ending_point_property&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ending_point_value&quot;</span><span class="p">:</span> <span class="n">p_3</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;34&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;isoline_property&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;isoline_value&quot;</span><span class="p">:</span> <span class="n">p_3</span><span class="p">,</span>
+        <span class="s2">&quot;starting_point_property&quot;</span><span class="p">:</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;starting_point_value&quot;</span><span class="p">:</span> <span class="n">h_3</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span>
+        <span class="s2">&quot;ending_point_property&quot;</span><span class="p">:</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ending_point_value&quot;</span><span class="p">:</span> <span class="n">h_4</span> <span class="o">/</span> <span class="mf">1e3</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;41&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;isoline_property&quot;</span><span class="p">:</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;isoline_value&quot;</span><span class="p">:</span> <span class="n">h_4</span> <span class="o">/</span> <span class="mf">1e3</span><span class="p">,</span>
+        <span class="s2">&quot;starting_point_property&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;starting_point_value&quot;</span><span class="p">:</span> <span class="n">p_4</span><span class="p">,</span>
+        <span class="s2">&quot;ending_point_property&quot;</span><span class="p">:</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ending_point_value&quot;</span><span class="p">:</span> <span class="n">p_1</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="n">line_data</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">calc_individual_isoline</span><span class="p">(</span><span class="o">**</span><span class="n">line</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">line_data</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">],</span> <span class="n">line_data</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#FF0000&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;temperature in °C&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;entropy in J/kgK&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b5fd5e72f7e032cc8ecb72ab6fcbad1928af05450323d3415cdc2f64a0ca8273.png" src="../_images/b5fd5e72f7e032cc8ecb72ab6fcbad1928af05450323d3415cdc2f64a0ca8273.png" />
+</div>
+</div>
+<p>Next we want to make a parametric study on the temperature level of evaporation
+and condensation. For that, we transform our small script to a function first.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">):</span>
+    <span class="n">p_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+    <span class="n">p_4</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+
+    <span class="n">h_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+    <span class="n">s_2</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+
+    <span class="n">p_3</span> <span class="o">=</span> <span class="n">p_4</span>
+    <span class="n">h_3s</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="n">s_2</span><span class="p">,</span> <span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">p_3</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+    <span class="n">h_3</span> <span class="o">=</span> <span class="n">h_2</span> <span class="o">+</span> <span class="p">(</span><span class="n">h_3s</span> <span class="o">-</span> <span class="n">h_2</span><span class="p">)</span> <span class="o">/</span> <span class="n">eta_s</span>
+
+    <span class="n">h_4</span> <span class="o">=</span> <span class="n">PropsSI</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fluid</span><span class="p">)</span>
+
+    <span class="n">m</span> <span class="o">=</span> <span class="n">heat</span> <span class="o">/</span> <span class="p">(</span><span class="n">h_4</span> <span class="o">-</span> <span class="n">h_3</span><span class="p">)</span>
+    <span class="n">power</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="p">(</span><span class="n">h_3</span> <span class="o">-</span> <span class="n">h_2</span><span class="p">)</span>
+    <span class="n">cop</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">heat</span><span class="p">)</span> <span class="o">/</span> <span class="n">power</span>
+    <span class="n">heat_evap</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">heat</span><span class="p">)</span> <span class="o">-</span> <span class="n">power</span>
+    <span class="k">return</span> <span class="n">m</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">cop</span><span class="p">,</span> <span class="n">heat_evap</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Carnot-efficiency is higher per se. Thermodynamic temperature of heat supply is lower than with the first fluid.</p>
+<p>We can double-check, if we get the same result as previously:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fluid</span> <span class="o">=</span> <span class="s2">&quot;R290&quot;</span>
+<span class="n">t_2</span> <span class="o">=</span> <span class="mf">283.15</span>
+<span class="n">t_4</span> <span class="o">=</span> <span class="mf">333.15</span>
+<span class="n">eta_s</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">heat</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e6</span>
+
+<span class="n">m</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">cop</span><span class="p">,</span> <span class="n">heat_evap</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">)</span>
+<span class="nb">round</span><span class="p">(</span><span class="n">cop</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.13
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the parametric study, we change both temperatures in a loop:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<span class="n">t_2_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+<span class="n">t_4_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+
+<span class="n">cop_parametric</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">t_2_range</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">t_4_range</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">t_2</span> <span class="ow">in</span> <span class="n">t_2_range</span><span class="p">:</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">cop</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2</span> <span class="o">+</span> <span class="mf">273.15</span><span class="p">,</span> <span class="n">t_4_range</span> <span class="o">+</span> <span class="mf">273.15</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">)</span>
+    <span class="n">cop_parametric</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">t_2</span><span class="p">]</span> <span class="o">=</span> <span class="n">cop</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can make two individual plots, which indicate the dependency of the COP, if
+we only change one or the other. As a base case, we select the middle
+temperature value on the ranges defined earlier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cop_parametric</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">cop_parametric</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Condensation temperature in °C&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;COP&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cop_parametric</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">cop_parametric</span><span class="p">[</span><span class="mi">55</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Evaporation temperature in °C&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/00ac25e86c0347b34703b06096d4476a17629a96d795fc947cce15dfe1e4a80b.png" src="../_images/00ac25e86c0347b34703b06096d4476a17629a96d795fc947cce15dfe1e4a80b.png" />
+</div>
+</div>
+<p>We can also make a 3D-surface plot using the temperature levels on x and y axes
+and the COP as z-value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="s2">&quot;3d&quot;</span><span class="p">})</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">t_4_range</span><span class="p">,</span> <span class="n">t_2_range</span><span class="p">)</span>
+
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">cop_parametric</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Condensation temperature in °C&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Evaporation temperature in °C&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">&quot;COP&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">225</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_box_aspect</span><span class="p">(</span><span class="n">aspect</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/afffd2aabe25f11641b321f1152c57660c8dabfbd8e0974dade6a7ec93426d6a.png" src="../_images/afffd2aabe25f11641b321f1152c57660c8dabfbd8e0974dade6a7ec93426d6a.png" />
+</div>
+</div>
 </section>
 <section id="tasks-part-2">
 <h2>Tasks part 2<a class="headerlink" href="#tasks-part-2" title="Permalink to this heading">#</a></h2>
@@ -728,7 +934,7 @@ the first or second assignment.</p>
 
 <span class="n">d</span> <span class="o">=</span> <span class="mf">1e-6</span>
 <span class="k">while</span> <span class="nb">abs</span><span class="p">(</span><span class="n">power</span> <span class="o">-</span> <span class="n">power_new</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">:</span>
-    <span class="n">m</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">p_2</span><span class="p">,</span> <span class="n">p_4</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat_guess</span><span class="p">)</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">cop</span><span class="p">,</span> <span class="n">heat_evap</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat_guess</span><span class="p">)</span>
     <span class="n">residual</span> <span class="o">=</span> <span class="n">power</span> <span class="o">-</span> <span class="n">power_new</span>
     <span class="n">heat_upper</span> <span class="o">=</span> <span class="n">heat_guess</span> <span class="o">+</span> <span class="n">d</span>
     <span class="n">heat_lower</span> <span class="o">=</span> <span class="n">heat_guess</span> <span class="o">-</span> <span class="n">d</span>
@@ -758,7 +964,7 @@ it with both, power and heat, specified.</p>
 <span class="n">d</span> <span class="o">=</span> <span class="mf">1e-6</span>
 <span class="n">t_2_guess</span> <span class="o">=</span> <span class="mf">333.15</span>
 <span class="k">while</span> <span class="nb">abs</span><span class="p">(</span><span class="n">power</span> <span class="o">-</span> <span class="n">power_new</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">:</span>
-    <span class="n">m</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">p_2</span><span class="p">,</span> <span class="n">p_4</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2_guess</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">)</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">cop</span><span class="p">,</span> <span class="n">heat_evap</span> <span class="o">=</span> <span class="n">run_forward</span><span class="p">(</span><span class="n">fluid</span><span class="p">,</span> <span class="n">t_2_guess</span><span class="p">,</span> <span class="n">t_4</span><span class="p">,</span> <span class="n">eta_s</span><span class="p">,</span> <span class="n">heat</span><span class="p">)</span>
     <span class="n">residual</span> <span class="o">=</span> <span class="n">power</span> <span class="o">-</span> <span class="n">power_new</span>
     <span class="n">t_2_upper</span> <span class="o">=</span> <span class="n">t_2_guess</span> <span class="o">+</span> <span class="n">d</span>
     <span class="n">t_2_lower</span> <span class="o">=</span> <span class="n">t_2_guess</span> <span class="o">-</span> <span class="n">d</span>

@@ -414,7 +414,7 @@ system is set up by connecting the components in a generic way and then
 specifying respective process and component parameters.</p>
 <p>The software then performs a steady state simulation of your system by creating
 and solving a system of equations in the <em>equation oriented (EO)</em> approach
-(also see <span id="id1">[<a class="reference internal" href="../zliterature.html#id3" title="Francesco Witte and Ilja Tuschy. TESPy: Thermal Engineering Systems in Python. Journal of Open Source Software, 5(49):2178, 2020. doi:10.21105/joss.02178.">9</a>]</span> and <span id="id2">[<a class="reference internal" href="../zliterature.html#id5" title="Francesco Witte, Mathias Hofmann, Julius Meier, Ilja Tuschy, and George Tsatsaronis. Generic and Open-Source Exergy Analysis—Extending the Simulation Framework TESPy. Energies, 15:4087, 2022. doi:10.3390/en15114087.">10</a>]</span> as well as the online
+(also see <span id="id1">[<a class="reference internal" href="../zliterature.html#id3" title="Francesco Witte and Ilja Tuschy. TESPy: Thermal Engineering Systems in Python. Journal of Open Source Software, 5(49):2178, 2020. doi:10.21105/joss.02178.">15</a>]</span> and <span id="id2">[<a class="reference internal" href="../zliterature.html#id5" title="Francesco Witte, Mathias Hofmann, Julius Meier, Ilja Tuschy, and George Tsatsaronis. Generic and Open-Source Exergy Analysis—Extending the Simulation Framework TESPy. Energies, 15:4087, 2022. doi:10.3390/en15114087.">16</a>]</span> as well as the online
 documentation for more information). The system represents the individual
 topology and component and process specifications provided by you. TESPy
 accomplishes this by solving for</p>
@@ -538,7 +538,7 @@ process parameters. We start with the values as provided in
  2     | 5.91e+05   | 2 %        | 0.00e+00   | 2.33e-10   | 7.39e+05   | 0.00e+00   | 0.00e+00   
  3     | 2.33e-10   | 100 %      | 0.00e+00   | 2.33e-10   | 6.94e-12   | 0.00e+00   | 0.00e+00   
  4     | 2.33e-10   | 100 %      | 0.00e+00   | 2.33e-10   | 6.94e-12   | 0.00e+00   | 0.00e+00   
-Total iterations: 4, Calculation time: 0.00 s, Iterations per second: 913.44
+Total iterations: 4, Calculation time: 0.01 s, Iterations per second: 744.07
 </pre></div>
 </div>
 </div>
@@ -628,36 +628,36 @@ system of equations and will result in an error when trying to solve.</p>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">c2</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">nwk</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="s2">&quot;design&quot;</span><span class="p">)</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/tespy/networks/network.py:1937,</span> in <span class="ni">Network.solve</span><span class="nt">(self, mode, init_path, design_path, max_iter, min_iter, init_only, init_previous, use_cuda, print_results, prepare_fast_lane)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1929</span> <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1930</span>     <span class="s2">&quot;Network information:</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1931</span>     <span class="sa">f</span><span class="s2">&quot; - Number of components: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">comps</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1932</span>     <span class="sa">f</span><span class="s2">&quot; - Number of connections: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conns</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1933</span>     <span class="sa">f</span><span class="s2">&quot; - Number of busses: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">busses</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1934</span> <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1935</span> <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1937</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialise</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1939</span> <span class="k">if</span> <span class="n">init_only</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1940</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_reset_topology_reduction_specifications</span><span class="p">()</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/tespy/networks/network.py:1952,</span> in <span class="ni">Network.solve</span><span class="nt">(self, mode, init_path, design_path, max_iter, min_iter, init_only, init_previous, use_cuda, print_results, prepare_fast_lane)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1944</span> <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1945</span>     <span class="s2">&quot;Network information:</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1946</span>     <span class="sa">f</span><span class="s2">&quot; - Number of components: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">comps</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1947</span>     <span class="sa">f</span><span class="s2">&quot; - Number of connections: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conns</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1948</span>     <span class="sa">f</span><span class="s2">&quot; - Number of busses: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">busses</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1949</span> <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1950</span> <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1952</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialise</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1954</span> <span class="k">if</span> <span class="n">init_only</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1955</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_reset_topology_reduction_specifications</span><span class="p">()</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/tespy/networks/network.py:851,</span> in <span class="ni">Network.initialise</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">848</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables_dict</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">    </span><span class="mi">850</span> <span class="bp">self</span><span class="o">.</span><span class="n">propagate_fluid_wrappers</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">851</span> <span class="bp">self</span><span class="o">.</span><span class="n">presolve_massflow_topology</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">852</span> <span class="bp">self</span><span class="o">.</span><span class="n">presolve_fluid_topology</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">854</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_set_properties</span><span class="p">()</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/tespy/networks/network.py:866,</span> in <span class="ni">Network.initialise</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">864</span>     <span class="bp">self</span><span class="o">.</span><span class="n">create_fluid_wrapper_branches</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">865</span> <span class="bp">self</span><span class="o">.</span><span class="n">propagate_fluid_wrappers</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">866</span> <span class="bp">self</span><span class="o">.</span><span class="n">presolve_massflow_topology</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">867</span> <span class="bp">self</span><span class="o">.</span><span class="n">presolve_fluid_topology</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">869</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_set_properties</span><span class="p">()</span>
 
-<span class="nn">File /opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/tespy/networks/network.py:989,</span> in <span class="ni">Network.presolve_massflow_topology</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">982</span> <span class="k">elif</span> <span class="n">num_massflow_specs</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">983</span>     <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">984</span>         <span class="s2">&quot;You cannot specify two or more values for mass flow in &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">985</span>         <span class="s2">&quot;the same linear branch (starting at &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">986</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">branch</span><span class="p">[</span><span class="s1">&#39;components&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="si">}</span><span class="s2"> and ending at &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">987</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">branch</span><span class="p">[</span><span class="s1">&#39;components&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="si">}</span><span class="s2">).&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">988</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">989</span>     <span class="k">raise</span> <span class="n">hlp</span><span class="o">.</span><span class="n">TESPyNetworkError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">991</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">992</span>     <span class="n">main_conn</span> <span class="o">=</span> <span class="n">branch</span><span class="p">[</span><span class="s2">&quot;connections&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="nn">File /opt/hostedtoolcache/Python/3.11.6/x64/lib/python3.11/site-packages/tespy/networks/network.py:1004,</span> in <span class="ni">Network.presolve_massflow_topology</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">997</span> <span class="k">elif</span> <span class="n">num_massflow_specs</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">998</span>     <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">999</span>         <span class="s2">&quot;You cannot specify two or more values for mass flow in &quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1000</span>         <span class="s2">&quot;the same linear branch (starting at &quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1001</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">branch</span><span class="p">[</span><span class="s1">&#39;components&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="si">}</span><span class="s2"> and ending at &quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1002</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">branch</span><span class="p">[</span><span class="s1">&#39;components&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="si">}</span><span class="s2">).&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1003</span>     <span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1004</span>     <span class="k">raise</span> <span class="n">hlp</span><span class="o">.</span><span class="n">TESPyNetworkError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1006</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1007</span>     <span class="n">main_conn</span> <span class="o">=</span> <span class="n">branch</span><span class="p">[</span><span class="s2">&quot;connections&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="ne">TESPyNetworkError</span>: You cannot specify two or more values for mass flow in the same linear branch (starting at source and ending at sink).
 </pre></div>
@@ -685,7 +685,6 @@ listed in the table.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tespy.networks</span> <span class="kn">import</span> <span class="n">Network</span>
 <span class="kn">from</span> <span class="nn">tespy.components</span> <span class="kn">import</span> <span class="n">Source</span><span class="p">,</span> <span class="n">Sink</span><span class="p">,</span> <span class="n">HeatExchanger</span>
 <span class="kn">from</span> <span class="nn">tespy.connections</span> <span class="kn">import</span> <span class="n">Connection</span>
-<span class="kn">from</span> <span class="nn">CoolProp.CoolProp</span> <span class="kn">import</span> <span class="n">PropsSI</span> <span class="k">as</span> <span class="n">PSI</span>
 
 
 <span class="n">nwk</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span><span class="n">p_unit</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">T_unit</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="n">iterinfo</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -705,8 +704,8 @@ listed in the table.</p>
 
 <span class="n">c1</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">fluid</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Air&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span> <span class="n">T</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">c2</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">c3</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">fluid</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;R290&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span> <span class="n">T</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">c4</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">c3</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">fluid</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;R290&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span> <span class="n">T</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">c4</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># starting value for pressure</span>
 
 <span class="n">eva</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">pr1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pr2</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 

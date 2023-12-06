@@ -386,8 +386,13 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-balance-equation">Energy balance equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-processes">Simple processes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isobaric">Isobaric</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isentropic-adiabatic-and-reversible">Isentropic: adiabatic and reversible</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polytropic">Polytropic</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -401,35 +406,119 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="thermodynamic-processes-in-open-systems">
 <span id="thermo-processes"></span><h1>Thermodynamic processes in open systems<a class="headerlink" href="#thermodynamic-processes-in-open-systems" title="Permalink to this heading">#</a></h1>
-<section id="id1">
-<h2><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-</section>
-<section id="energy-balance-equation">
-<h2>Energy balance equation<a class="headerlink" href="#energy-balance-equation" title="Permalink to this heading">#</a></h2>
-<p>To model processes in open thermodynamic systems, the energy balance connects
-the change of the fluid’s state to the energy transfer from or to the system.
-To simplify, we will only consider systems in <em>steady-state</em> operation. That
-means, that the operation of the system does not change with time, e.g. due to
-thermal inertia. Furthermore, we will assume, that neither kinetic nor potential
-energy of the fluid will change, when the fluid passes the system, or the change
-is negligibly small in comparison to the change of enthalpy.
-<a class="reference internal" href="#thermo-open-system-energy"><span class="std std-numref">Fig. 8</span></a> shows a general thermodynamic open system
-with <span class="math notranslate nohighlight">\(o\)</span> denoting outlet streams and <span class="math notranslate nohighlight">\(i\)</span> denoting inlet streams. On top of that,
-energy can be transferred from or to the system with work or heat.
-Irreversibility production due to thermodynamic inefficiencies can be neglected
-at first. Then, the general energy balance of the thermodynamic open system in
-steady-state operation can be written as follows:</p>
+<p>In open systems various processes may happen.
+<a class="reference internal" href="#thermo-open-system-energy"><span class="std std-numref">Fig. 8</span></a> shows a black-box open system. The open
+system has inflows and outflows. Furthermore, energy in the form of heat or work
+may be transported across the system’s borders. For assessing system
+performance, we need to create a relation between the flow of mass and the
+energy streams. To do that, we can set up an energy balance equation connecting
+the change of the fluid streams’ states with the energy transported across the
+system border. Therefore, unlike in closed systems where we can assess the state
+of the system in different points in time, we want to assess the state of the
+fluid while entering and while leaving the open system at the same time. This
+assumes the system is operated in <em>steady-state</em>, which means that the operation
+of the system does not change with time, e.g. due to effects of thermal inertia.</p>
 <figure class="align-default" id="thermo-open-system-energy">
 <img alt="figures/Systemoverview.svg" src="figures/Systemoverview.svg" /><figcaption>
-<p><span class="caption-number">Fig. 8 </span><span class="caption-text">States of the evaporating fluid.</span><a class="headerlink" href="#thermo-open-system-energy" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Black box open system with inflowing and outflowing mass and transfer of energy.</span><a class="headerlink" href="#thermo-open-system-energy" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<section id="energy-balance-equation">
+<h2>Energy balance equation<a class="headerlink" href="#energy-balance-equation" title="Permalink to this heading">#</a></h2>
+<p>For the energy balance equation we separate the transport of energy with mass
+from the energy transferred via work or heat. Furthermore, since we want to
+balance systems in steady state, the derivative to time is used, i.e.:</p>
+<ul class="simple">
+<li><p>mass flow <span class="math notranslate nohighlight">\(\dot m\)</span> in <code class="docutils literal notranslate"><span class="pre">kg/s</span></code></p></li>
+<li><p>heat transfer <span class="math notranslate nohighlight">\(\dot Q\)</span> in <code class="docutils literal notranslate"><span class="pre">W</span></code> or <code class="docutils literal notranslate"><span class="pre">J/s</span></code></p></li>
+<li><p>work rate <span class="math notranslate nohighlight">\(\dot W\)</span> in <code class="docutils literal notranslate"><span class="pre">W</span></code> or <code class="docutils literal notranslate"><span class="pre">J/s</span></code></p></li>
+<li><p>dissipation energy rate <span class="math notranslate nohighlight">\(\dot W_\text{diss}\)</span> in <code class="docutils literal notranslate"><span class="pre">W</span></code> or <code class="docutils literal notranslate"><span class="pre">J/s</span></code></p></li>
+</ul>
+<p>Heat and work may be transferred to the system and that changes the states of
+the inflowing and outflowing fluids. We will assume, that neither kinetic nor
+potential energy of the fluid will change, when the fluid passes the system, or
+the change is negligibly small in comparison to the change of enthalpy.
+In <a class="reference internal" href="#thermo-open-system-energy"><span class="std std-numref">Fig. 8</span></a> <span class="math notranslate nohighlight">\(o\)</span> denotes outlet streams and <span class="math notranslate nohighlight">\(i\)</span>
+denotes inlet streams. The general energy balance of the thermodynamic open
+system in steady-state operation can then be written as follows:</p>
 <div class="math notranslate nohighlight">
-\[\dot Q + \dot W = \sum_o \left( \dot m_o \cdot h_o \right) - \sum_i \left( \dot m_i \cdot h_i \right)\;\forall o \in \text{outlets};\forall i \in \text{inlets}\]</div>
+\[\dot Q + \dot W + \dot W_\text{diss} = \sum_o \left( \dot m_o \cdot h_o \right) -
+\sum_i \left( \dot m_i \cdot h_i \right)
+\;\forall o \in \text{outlets};\forall i \in \text{inlets}\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By substracting the energy of the inflowing mass from the energy of the
+outflowing mass we are implying a sign convention for heat and work:</p>
+<ul class="simple">
+<li><p>A positive sign for heat or work means that energy is transferred into the
+system.</p></li>
+<li><p>A negative sign indicates that energy is transferred out of the system.</p></li>
+<li><p>Dissipation energy is always positive <span class="math notranslate nohighlight">\(\dot W_\text{diss}\geq 0\)</span>.</p></li>
+</ul>
+<p>Dissipation of energy …</p>
+</div>
 <p>Many thermodynamic components will only have a single fluid stream, therefore
 simplifying the equation:</p>
 <div class="math notranslate nohighlight">
-\[\dot Q + \dot W = \dot m \cdot \left( h_\text{out} - h_\text{in}\right)\]</div>
+\[\dot Q + \dot W + \dot W_\text{diss}= \dot m \cdot \left( h_\text{out} - h_\text{in}\right)\]</div>
+</section>
+<section id="simple-processes">
+<h2>Simple processes<a class="headerlink" href="#simple-processes" title="Permalink to this heading">#</a></h2>
+<p>One of the main challenges now lies in the identification of heat and work
+transfer given a change of state. The following section will outline, how this
+can be achieved:</p>
+<p>If we observe a change of state in a mass flow between the inlet and the outlet
+of a system, we cannot make any conclusions back to the process taking place in
+the system. For example, we might see enthalpy not changing between inlet and
+outlet. Without further knowledge on the system’s attributes, we cannot know
+what processes happened. Work could be transferred into the system and the same
+amount of heat could be withdrawn. However, if we knew that we have an adiabatic
+system, we could conclude that no work is transferred as well.</p>
+<p>Therefore, we have a closer look at simple processes typical for open systems,
+which may help us create a direct connection between a change of state and
+process energy. Work rate can be calculated:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\dot W}{\dot m} = w = \int_1^2 v \text{d} p\]</div>
+<p>Heat rate is</p>
+<div class="math notranslate nohighlight">
+\[\frac{\dot Q}{\dot m} = q = \int_1^2 T \text{d}s\]</div>
+<p>Dissipation of energy is</p>
+<div class="math notranslate nohighlight">
+\[\frac{\dot W_\text{diss}}{\dot m} = w_\text{diss} = \int_1^2 T \text{d}s\]</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Without process knowledge we cannot distinguish between heat transfer and
+dissipation of energy, when work rate is 0.</p>
+</div>
+<section id="isobaric">
+<h3>Isobaric<a class="headerlink" href="#isobaric" title="Permalink to this heading">#</a></h3>
+<p>A process is called isobaric, if pressure remains unchanged, therefore:</p>
+<div class="math notranslate nohighlight">
+\[v \text{d}p = 0\]</div>
+<p>Since pressure does not change, that means the work rate of such a process
+must be zero. Typical examples for such processes are heat exchangers or
+junctions.</p>
+</section>
+<section id="isentropic-adiabatic-and-reversible">
+<h3>Isentropic: adiabatic and reversible<a class="headerlink" href="#isentropic-adiabatic-and-reversible" title="Permalink to this heading">#</a></h3>
+<p>If a fluid is undergoing a process, in which does not transfer heat to or from
+the fluid and which is reversible (thermodynamically ideal), the entropy of the
+fluid cannot change, since entropy only changes with heat transfer or can be
+generated through irreversibility.</p>
+<div class="math notranslate nohighlight">
+\[s_2 - s_1 = 0\]</div>
+<p>Such a process cannot happen in reality, but it may serve as a benchmark for
+real processes, i.e. in compression or expansion machine, since this is the best
+possible process possible.</p>
+</section>
+<section id="polytropic">
+<h3>Polytropic<a class="headerlink" href="#polytropic" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>heat transfer with pressure loss</p></li>
+<li><p>adiabatic and irreversible</p></li>
+<li></li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -496,8 +585,13 @@ simplifying the equation:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-balance-equation">Energy balance equation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-processes">Simple processes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isobaric">Isobaric</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isentropic-adiabatic-and-reversible">Isentropic: adiabatic and reversible</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polytropic">Polytropic</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

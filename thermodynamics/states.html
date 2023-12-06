@@ -420,7 +420,7 @@ consider mixtures of different fluids.</p>
 <ul class="simple">
 <li><p>pressure <span class="math notranslate nohighlight">\(p\)</span>,</p></li>
 <li><p>temperature <span class="math notranslate nohighlight">\(T\)</span> and</p></li>
-<li><p>density <span class="math notranslate nohighlight">\(\rho\)</span>.</p></li>
+<li><p>density <span class="math notranslate nohighlight">\(\rho\)</span> or specific volume <span class="math notranslate nohighlight">\(v=\frac{1}{\rho}\)</span>.</p></li>
 </ul>
 <p>In many cases it is sufficient to measure two of these three properties to
 determine the third using physical models. For example, if you measure the
@@ -459,9 +459,8 @@ iapws <span id="id2">[<a class="reference internal" href="../zliterature.html#id
 <p>It is possible to visualize the fluid property models in different types of
 states diagrams. For example, a log(p),log(v),T-surface is plotted for water in
 <a class="reference internal" href="#thermo-pvt"><span class="std std-numref">Fig. 5</span></a>. <span class="math notranslate nohighlight">\(v\)</span> is the mass specific volume, the inverse of density.
-The <a class="reference internal" href="#thermo-pt"><span class="std std-numref">Fig. 6</span></a> shows a pT-plane indicating the interdependency of
-pressure and temperature in the two-phase region. The colors indicate the
-different phases of the fluid:</p>
+The <a class="reference internal" href="#thermo-pt"><span class="std std-numref">Fig. 6</span></a> shows the pT-projection of the same fluid. The colors
+indicate the different phases of the fluid:</p>
 <ul class="simple">
 <li><p>red: two-phase region</p></li>
 <li><p>blue: subcooled liquid</p></li>
@@ -473,6 +472,9 @@ different phases of the fluid:</p>
 <p><span class="caption-number">Fig. 5 </span><span class="caption-text">Pressure, specific volume, temperature space of water.</span><a class="headerlink" href="#thermo-pvt" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<p>In the pT-projection we can see, that pressure and temperature are linearly
+dependent in the two-phase region. We cannot determine the state of the fluid
+completely without knowing specific volume or vapor mass fraction here.</p>
 <figure class="align-default" id="thermo-pt">
 <img alt="../_images/pT_water.svg" src="../_images/pT_water.svg" /><figcaption>
 <p><span class="caption-number">Fig. 6 </span><span class="caption-text">Pressure, temperature plane of water.</span><a class="headerlink" href="#thermo-pt" title="Permalink to this image">#</a></p>
@@ -501,24 +503,41 @@ mass of a fluid to change the state while flowing through an open system.</p>
 <div class="math notranslate nohighlight">
 \[h=f\left(p,T\right)\]</div>
 <p>On top of that, mass specific entropy <span class="math notranslate nohighlight">\(s\)</span> is used to describe the state of a
-fluid. The entropy of a fluid is useful for any kind of second-law analysis or
-component benchmarking. The entropy of a fluid can change under two
-circumstances:</p>
+fluid. The entropy is useful for detecting whether processes are reversible or
+irreversible or for component benchmarking. First, there are three
+fundamental principles for entropy:</p>
 <ol class="arabic simple">
-<li><p>The fluid experiences a process that is thermodynamic not-ideal, i.e.
-irreversible. The specific entropy must increase in this case.</p></li>
-<li><p>Heat is transferred from or to the fluid: If heat is transferred to the fluid
-the entropy increases, if heat is removed from the fluid the entropy
-decreases since entropy is transported together with heat.</p></li>
+<li><p>Entropy can never be destroyed.</p></li>
+<li><p>Entropy is generated in thermodynamic non-ideal (<em>irreversible</em>) processes.</p></li>
+<li><p>Entropy can be transferred together with heat.</p></li>
 </ol>
 <p>With these relations we can use the entropy for process benchmarking. For
-example in a component with an adiabatic process, the entropy does not change
-if the process is thermodynamically ideal. We can compare a real world process
-with the ideal to assess the optimization potential in our component. Similar to
-enthalpy, entropy can be expressed as function of pressure and temperature or
-pressure and specific volume.</p>
+example, in a component with an adiabatic process, the entropy does not change
+if the process is thermodynamically ideal because neither is it generated nor
+can entropy be transferred with heat transfer. You would find such a process in
+a compressor or in a turbine. We can now benchmark our real world component with
+this ideal process and assess the optimization potential in our component.</p>
+<p>Or, we can prove, why heat transfer can never be reversible: To transfer heat
+from one object to another object or from one fluid stream to another fluid
+stream, a temperature difference must be present, since heat always is
+transported from high temperature to low temperature. The entropy transported
+together with heat depends on the temperature level of the heat.</p>
+<div class="math notranslate nohighlight">
+\[\dot S_\text{Q} = \frac{\dot Q}{T}\]</div>
+<p>If we transfer a specific amount of heat e.g. from a stream of water to a stream
+of air, the total amount of heat delivered by the water would be received by the
+air stream. Therefore, <span class="math notranslate nohighlight">\(|\dot Q_\text{water}| = \dot Q_\text{air}\)</span>. Since
+the temperature of the water must be higher than the temperature of the air, we
+can see that the entropy removed from the water stream is lower than the entropy
+received by the stream of air.</p>
+<p>Similar to enthalpy, entropy can be expressed as function of pressure and
+temperature or pressure and specific volume.</p>
 <div class="math notranslate nohighlight">
 \[s=f\left(p,T\right)\]</div>
+<p>For <em>reversible</em> processes an easy relationship can be made between entropy,
+enthalpy and the other state variables can be made:</p>
+<div class="math notranslate nohighlight">
+\[T\text{d}s = \text{d}h-v\text{dp}\]</div>
 </section>
 </section>
 

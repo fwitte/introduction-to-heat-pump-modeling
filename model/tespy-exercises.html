@@ -63,6 +63,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'model/tespy-exercises';</script>
     <link rel="shortcut icon" href="../_static/logo_tespy_small.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -388,6 +390,12 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="exercises">
 <h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
+<p>Set up a heat pump model using TESPy with the identical specifications as you
+have done previously in <a class="reference internal" href="exercise-sm.html#exercise-heat-pump"><span class="std std-ref">this exercise</span></a>. The results
+in this section should be identical to those in the previous section, however,
+we should be able to find them much easier.</p>
+<p>First, we import the necessary classes from TESPy and create the topology by
+adding the respective connections to the network instance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tespy.components</span> <span class="kn">import</span> <span class="n">Compressor</span><span class="p">,</span> <span class="n">SimpleHeatExchanger</span><span class="p">,</span> <span class="n">Valve</span><span class="p">,</span> <span class="n">CycleCloser</span>
@@ -415,6 +423,7 @@ document.write(`
 </div>
 </div>
 </div>
+<p>Next we set up the initial parameters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_2</span> <span class="o">=</span> <span class="mi">10</span>
@@ -432,6 +441,7 @@ document.write(`
 </div>
 </div>
 </div>
+<p>We can solve the model by calling the <code class="docutils literal notranslate"><span class="pre">solve</span></code> function on our network instance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nw</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="s2">&quot;design&quot;</span><span class="p">)</span>
@@ -439,6 +449,8 @@ document.write(`
 </div>
 </div>
 </div>
+<p>The components’ information can be accessed via the <code class="docutils literal notranslate"><span class="pre">val</span></code> attribute. <code class="docutils literal notranslate"><span class="pre">P</span></code> is
+power and <code class="docutils literal notranslate"><span class="pre">Q</span></code> is heat.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cop</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">cd</span><span class="o">.</span><span class="n">Q</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="n">cp</span><span class="o">.</span><span class="n">P</span><span class="o">.</span><span class="n">val</span>
@@ -452,6 +464,7 @@ document.write(`
 </div>
 </div>
 </div>
+<p>Now fix the compressor power input and remove the heat demand specification.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">P</span><span class="o">=</span><span class="mf">0.2e6</span><span class="p">)</span>
@@ -467,6 +480,8 @@ document.write(`
 </div>
 </div>
 </div>
+<p>Fix the heat demand back to the original value and unset the condensation
+temperature, it will be a result of the calculation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">Q</span><span class="o">=-</span><span class="mf">1e6</span><span class="p">)</span>
@@ -482,6 +497,20 @@ document.write(`
 </div>
 </div>
 </div>
+<p>If topologies get more complex and we do not know the amount of heat and power
+directly, but we want to achieve a specific COP anyways, we can define our own
+equations and pass them into our model.</p>
+<p>First we define the COP equation:</p>
+<div class="math notranslate nohighlight">
+\[0 = \left(h_2 - h_3 \right) - \text{COP} \cdot \left(h_2 - h_1\right)\]</div>
+<p>Then we create the Jacobian for that equation and put it inside a function as
+well.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+\frac{\partial}{\partial h_1} = &amp;\;\text{COP}\\
+\frac{\partial}{\partial h_2} = &amp;\; 1-\text{COP}\\
+\frac{\partial}{\partial h_3} = &amp;\;-1
+\end{align}\end{split}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cop_ude</span><span class="p">(</span><span class="n">ude</span><span class="p">):</span>
@@ -502,6 +531,8 @@ document.write(`
 </div>
 </div>
 </div>
+<p>We can unset the condenser heat specification again and create a
+<code class="docutils literal notranslate"><span class="pre">UserDefinedEquation</span></code> with a cop specification of 5.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">Q</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
@@ -515,6 +546,7 @@ document.write(`
 </div>
 </div>
 </div>
+<p>This should give us a COP of 5.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">abs</span><span class="p">(</span><span class="n">cd</span><span class="o">.</span><span class="n">Q</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="o">/</span> <span class="n">cp</span><span class="o">.</span><span class="n">P</span><span class="o">.</span><span class="n">val</span>
@@ -522,57 +554,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.000000000000047
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c4</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">val</span> <span class="o">-</span> <span class="n">c2</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">val</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42.33872548314491
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c2</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">c1</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">0.35</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nw</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="s2">&quot;design&quot;</span><span class="p">)</span>
-<span class="n">c4</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">val</span> <span class="o">-</span> <span class="n">c2</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">val</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42.02375920281298
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">eta_s</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">P</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">cd</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">Q</span><span class="o">=-</span><span class="mf">1e6</span><span class="p">)</span>
-<span class="n">c1</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mf">3.5</span><span class="p">)</span>
-<span class="n">nw</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="s2">&quot;design&quot;</span><span class="p">)</span>
-<span class="n">c4</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">c2</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">val</span>
-<span class="n">cp</span><span class="o">.</span><span class="n">eta_s</span><span class="o">.</span><span class="n">val</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8190473934398301
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.000000000000051
 </pre></div>
 </div>
 </div>
