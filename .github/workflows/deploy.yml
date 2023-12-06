@@ -27,7 +27,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install jupyter-book tespy
+        pip install jupyter-book tespy fluprodia
 
     # Build the book
     - name: Build the book
