@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Exercises &#8212; Workshop on Thermodynamic Modeling of Heat Pumps</title>
   
@@ -15,64 +14,64 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
-  
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3437f865" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'model/exercise-sm';</script>
-    <link rel="shortcut icon" href="../_static/logo_tespy_small.svg"/>
+    <link rel="icon" href="../_static/logo_tespy_small.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Example for the equation oriented approach" href="example-eo.html" />
     <link rel="prev" title="Introduction" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -80,32 +79,16 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -113,7 +96,6 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -121,16 +103,25 @@ const thebe_selector_output = ".output, .cell_output"
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -145,6 +136,8 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../index.html">
   
@@ -158,11 +151,18 @@ const thebe_selector_output = ".output, .cell_output"
     
     
     <img src="../_static/logo_tespy_small.svg" class="logo__image only-light" alt="Workshop on Thermodynamic Modeling of Heat Pumps - Home"/>
-    <script>document.write(`<img src="../_static/logo_tespy_small.svg" class="logo__image only-dark" alt="Workshop on Thermodynamic Modeling of Heat Pumps - Home"/>`);</script>
+    <img src="../_static/logo_tespy_small.svg" class="logo__image only-dark pst-js-only" alt="Workshop on Thermodynamic Modeling of Heat Pumps - Home"/>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
@@ -185,7 +185,6 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Heat Pump Model in TESPy</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tespy-intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tespy-model.html">Heat Pump Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tespy-exercises.html">Exercises</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -206,7 +205,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -215,14 +214,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -345,27 +344,19 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -402,21 +393,22 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="exercises">
-<span id="exercise-heat-pump"></span><h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h1>
+<span id="exercise-heat-pump"></span><h1>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h1>
 <p>Create a model of a simple heat pump using R290 as refrigerant and with the
 boundary conditions denoted in table below. Do not consider hot side of the
 evaporator or cold side of the condenser in your model.</p>
 <figure class="align-default" id="simple-heat-pump-flowsheet">
-<img alt="../_images/heat_pump.svg" src="../_images/heat_pump.svg" /><figcaption>
-<p><span class="caption-number">Fig. 9 </span><span class="caption-text">Flow sheet of the simple heat pump.</span><a class="headerlink" href="#simple-heat-pump-flowsheet" title="Permalink to this image">#</a></p>
+<img alt="../_images/heat_pump.svg" src="../_images/heat_pump.svg" />
+<figcaption>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">Flow sheet of the simple heat pump.</span><a class="headerlink" href="#simple-heat-pump-flowsheet" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this heading">#</a></h2>
-<table class="table">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Location</p></th>
 <th class="head text-left"><p>Parameter</p></th>
@@ -447,9 +439,10 @@ evaporator or cold side of the condenser in your model.</p>
 </tr>
 </tbody>
 </table>
+</div>
 </section>
 <section id="tasks-part-1">
-<h2>Tasks part 1<a class="headerlink" href="#tasks-part-1" title="Permalink to this heading">#</a></h2>
+<h2>Tasks part 1<a class="headerlink" href="#tasks-part-1" title="Link to this heading">#</a></h2>
 <p>Calculate:</p>
 <ul class="simple">
 <li><p>pressure levels for evaporation and condensation.</p></li>
@@ -611,7 +604,7 @@ the saturation dome and then insert the states and connect them.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5ca547ea3c8db39ec5d9d524fa9034bab7abb3d546ff43ca2306a3294ed90c2a.png" src="../_images/5ca547ea3c8db39ec5d9d524fa9034bab7abb3d546ff43ca2306a3294ed90c2a.png" />
+<img alt="../_images/bf42c52fe3104624b61a7d58f51d09eb3758117b46c97d5603a49fdd9f5faa06.png" src="../_images/bf42c52fe3104624b61a7d58f51d09eb3758117b46c97d5603a49fdd9f5faa06.png" />
 </div>
 </div>
 <p>Alternatively we can use a library wrapping around CoolProp to plot styled
@@ -646,7 +639,7 @@ diagrams, i.e. <code class="docutils literal notranslate"><span class="pre">flup
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f9c212356181f46e1dfb8035bca83fd91924a52e8a8bfafe3068513973972fbc.png" src="../_images/f9c212356181f46e1dfb8035bca83fd91924a52e8a8bfafe3068513973972fbc.png" />
+<img alt="../_images/b334f4ad2482cc3b147056c31605b4d88667ed812a5e49c0024dd105251f4617.png" src="../_images/b334f4ad2482cc3b147056c31605b4d88667ed812a5e49c0024dd105251f4617.png" />
 </div>
 </div>
 <p>With this we can also easily put in a Ts diagram. To plot the lines, we have to
@@ -713,7 +706,7 @@ region. For this, fluprodia provides extra functionality.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b5fd5e72f7e032cc8ecb72ab6fcbad1928af05450323d3415cdc2f64a0ca8273.png" src="../_images/b5fd5e72f7e032cc8ecb72ab6fcbad1928af05450323d3415cdc2f64a0ca8273.png" />
+<img alt="../_images/3155ef73a6f777f51bd46fd3b28f580793c4adcbea6c3a38fb5992c78e25167c.png" src="../_images/3155ef73a6f777f51bd46fd3b28f580793c4adcbea6c3a38fb5992c78e25167c.png" />
 </div>
 </div>
 <p>Next we want to make a parametric study on the temperature level of evaporation
@@ -797,7 +790,7 @@ temperature value on the ranges defined earlier.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/00ac25e86c0347b34703b06096d4476a17629a96d795fc947cce15dfe1e4a80b.png" src="../_images/00ac25e86c0347b34703b06096d4476a17629a96d795fc947cce15dfe1e4a80b.png" />
+<img alt="../_images/6a1a9deafdbad6425ced1598b942a5453aa68c5c9a41bb11afc6a22a8bee9a54.png" src="../_images/6a1a9deafdbad6425ced1598b942a5453aa68c5c9a41bb11afc6a22a8bee9a54.png" />
 </div>
 </div>
 <p>We can also make a 3D-surface plot using the temperature levels on x and y axes
@@ -823,12 +816,12 @@ and the COP as z-value.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/afffd2aabe25f11641b321f1152c57660c8dabfbd8e0974dade6a7ec93426d6a.png" src="../_images/afffd2aabe25f11641b321f1152c57660c8dabfbd8e0974dade6a7ec93426d6a.png" />
+<img alt="../_images/4ba213a3ecedc6739b9af716f18da190e50cb4f643291c0b57378346a9ad96b7.png" src="../_images/4ba213a3ecedc6739b9af716f18da190e50cb4f643291c0b57378346a9ad96b7.png" />
 </div>
 </div>
 </section>
 <section id="tasks-part-2">
-<h2>Tasks part 2<a class="headerlink" href="#tasks-part-2" title="Permalink to this heading">#</a></h2>
+<h2>Tasks part 2<a class="headerlink" href="#tasks-part-2" title="Link to this heading">#</a></h2>
 <p>The available compressor power is now limited to 200 kW.</p>
 <ul class="simple">
 <li><p>What amount of heat can the heat pump deliver in the conditions given in the
@@ -839,7 +832,7 @@ reduced to 0 °C.</p></li>
 again?</p></li>
 </ul>
 <section id="reimplementation">
-<h3>Reimplementation<a class="headerlink" href="#reimplementation" title="Permalink to this heading">#</a></h3>
+<h3>Reimplementation<a class="headerlink" href="#reimplementation" title="Link to this heading">#</a></h3>
 <p>For the first exercise we can reimplement our example straightforwardly: No
 temperature levels change, therefore only the calculation of the mass flow
 changes, i.e. via the compressor power and enthalpy difference instead of the
@@ -920,7 +913,7 @@ easily possible. Therefore, an iterative approach can be taken making use of our
 previous implementation.</p>
 </section>
 <section id="iterative-calculations">
-<h3>Iterative calculations<a class="headerlink" href="#iterative-calculations" title="Permalink to this heading">#</a></h3>
+<h3>Iterative calculations<a class="headerlink" href="#iterative-calculations" title="Link to this heading">#</a></h3>
 <p>We can implement a one-dimensional Newton algorithm to solve for the desired
 property. First, we can validate our implementation vs. the result we can from
 the first or second assignment.</p>
@@ -1014,7 +1007,7 @@ it with both, power and heat, specified.</p>
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1042,7 +1035,9 @@ it with both, power and heat, specified.</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1081,7 +1076,7 @@ By Francesco Witte
 
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1105,8 +1100,8 @@ By Francesco Witte
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>
