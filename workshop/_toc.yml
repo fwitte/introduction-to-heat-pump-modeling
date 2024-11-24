@@ -19,7 +19,6 @@ parts:
 - caption: Heat Pump Model in TESPy
   chapters:
   - file: model/tespy-intro
-  - file: model/tespy-model
   - file: model/tespy-exercises
 - caption: References
   chapters:
