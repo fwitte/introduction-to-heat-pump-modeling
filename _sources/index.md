@@ -22,12 +22,12 @@ The tutorial is separated in three chapters:
 Every chapter has a section with a couple of exercises, where you can
 implement the models with python code.
 
-## Preconditions for Participants
+## Preconditions
 
 The course employs python to model the heat pump systems. In order to complete
-it, you have to install python on your machine. With that done, you will
-need a virtual environment with a couple of dependencies installed to execute
-the python code. You can follow the instructions provided on the
+the exercises, you have to install python on your machine. With that done, you
+will need a virtual environment with a couple of dependencies installed to
+execute the python code. You can follow the instructions provided on the
 [TESPy documentation](https://tespy.readthedocs.io/en/main/installation.html).
 On top of that, you can use something like
 [jupyterlab](https://jupyterlab.readthedocs.io/en/latest/) for interactive
